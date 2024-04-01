@@ -1,0 +1,22 @@
+
+  .regbg{
+    padding-top: 130px;
+    position: absolute;
+    padding-left: 30px;
+    /* ok */
+  }
+  .reg{
+   padding-left: 600px;
+   /* ok */
+  }
+  .head{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: blue;
+    /* ok */
+  }
+  .regborder{
+    border-radius: 40px;
+    /* ok */
+    
+  }
+  
