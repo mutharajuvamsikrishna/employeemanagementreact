@@ -37,6 +37,11 @@ const DashBoard = () => {
                                 Bank Details
                                 </CDBSidebarMenuItem>
                             </Button>
+                            <Button variant="outline-info"  size='sm'style={{height:"50px",marginBottom:"10px",width:"200px"}} onClick={() => navigate("/emergencydetails", { state: { data: data } })}>
+                                <CDBSidebarMenuItem icon="columns">
+                                Emergency Details
+                                </CDBSidebarMenuItem>
+                            </Button>
                         </CDBSidebarMenu>
                     </CDBSidebarContent>
                     <CDBSidebarFooter style={{ textAlign: 'center' }}>

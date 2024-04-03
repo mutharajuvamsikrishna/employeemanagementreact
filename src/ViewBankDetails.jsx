@@ -15,10 +15,10 @@ const ViewBankDetails = () => {
     email: email,
   };
   useEffect(() => {
-    fetchEmployeeData(email);
+    fetchBankData(email);
   }, [email]);
 
-  const fetchEmployeeData = (email) => {
+  const fetchBankData = (email) => {
     getBankDetails(email)
       .then((response) => {
         setLoading(false);
@@ -39,7 +39,7 @@ const ViewBankDetails = () => {
           <p>Loading...</p>
         ) : (
           <>
-            <h2 className="text-center">Employee Details</h2>
+            <h2 className="text-center">Bank Details</h2>
             <table className="table table-striped table-bordered">
               <thead></thead>
               <tbody>

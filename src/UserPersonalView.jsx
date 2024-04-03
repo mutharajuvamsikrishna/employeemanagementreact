@@ -16,10 +16,10 @@ const UserPersonalView = () => {
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
-    fetchEmployeeData(email);
+    fetchPersonalData(email);
   }, [email]);
 
-  const fetchEmployeeData = (email) => {
+  const fetchPersonalData = (email) => {
     //axios
     //  .get(`http://localhost:1279/viewpersonal?email=${regno}`)
     getPersonalDetails(email)
@@ -97,7 +97,7 @@ const UserPersonalView = () => {
                       required
                     />
                   </td>
-                  {formData.val1 === "yes" && (
+                  {formData.val1 === "Yes" && (
                     <>
                       <td>
                         <label>Do you have a Passport?</label>
@@ -127,7 +127,7 @@ const UserPersonalView = () => {
                 </tr>
 
                 <tr>
-                  {formData.val1 === "yes" && (
+                  {formData.val1 === "Yes" && (
                     <>
                       <td>
                         <label>Passport Status</label>
@@ -155,7 +155,7 @@ const UserPersonalView = () => {
                       </td>
                     </>
                   )}
-                  {formData.val2 === "yes" && (
+                  {formData.val2 === "Yes" && (
                     <>
                       <td>
                         <label>Do you have a VISA? </label>
@@ -172,7 +172,7 @@ const UserPersonalView = () => {
                 </tr>
 
                 <tr>
-                  {formData.val2 === "yes" && (
+                  {formData.val2 === "Yes" && (
                     <>
                       <td>
                         <label>VISA Number</label>
@@ -372,7 +372,7 @@ const UserPersonalView = () => {
                     </td>
                   </td>
                 </tr>
-                {formData.val1 === "yes" && (
+                {formData.val1 === "Yes" && (
                   <>
                     <tr>
                       <td>Passport File</td>

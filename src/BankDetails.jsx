@@ -67,7 +67,7 @@ const BankDetails = () => {
           formData.append(key, value);
         });
         const response = await postBankDetails(formData);
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 201) {
           alert("Details Saved Sucess Fully");
           window.location.reload();
         }
@@ -242,6 +242,9 @@ const BankDetails = () => {
             </div>
           </form>
         </div>
+      </div>
+      <div className="text-center" style={{ paddingTop: "30px" }}>
+        <a href="javascript:history.go(-1)">Go Back</a>
       </div>
     </div>
   );

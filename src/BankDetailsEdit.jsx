@@ -74,7 +74,7 @@ const BankDetailsEdit = () => {
           formData.append(key, value);
         });
         const response = await putBankDetails(formData);
-        if (response.status === 200) {
+        if ((response.status === 200)||(response.status === 201)) {
           alert("Details Saved Sucess Fully");
           window.location.reload();
         }

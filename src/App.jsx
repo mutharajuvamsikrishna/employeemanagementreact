@@ -18,6 +18,8 @@ import FamilyDetailsView from './FamilyDetailsView';
 import FamilyDetailsEdit from './FamilyDetailsEdit';
 import BankDetails from './BankDetails';
 import BankDetailsEdit from './BankDetailsEdit';
+import EmergencyDetails from './EmergencyDetails';
+import EmergencyDetailsEdit from './EmergencyDetailsEdit';
 function App() {
   return (
     <>
@@ -41,6 +43,8 @@ function App() {
           <Route path="/familydetailsedit" element={<FamilyDetailsEdit />} />
           <Route path="/bankdetails" element={<BankDetails />} />
           <Route path="/bankdetailsedit" element={<BankDetailsEdit />} />
+          <Route path="/emergencydetails" element={<EmergencyDetails />} />
+          <Route path="/emergencydetailsedit" element={<EmergencyDetailsEdit />} />
           </Routes>
           </Router>
 </div>

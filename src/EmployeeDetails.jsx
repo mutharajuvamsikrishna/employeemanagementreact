@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useFormik, validateYupSchema } from "formik";
-import { postEmployeeDetails, getEmployeeDetails } from "./Services/Api";
+import { updateEmployeeDetails, getEmployeeDetails } from "./Services/Api";
 import * as Yup from "yup";
 import "./EmployeeDetails.css";
 import ViewEmployeeDetails from "./ViewEmployeeDetails";
@@ -14,11 +14,11 @@ const EmployeeDetails = () => {
   const [countryList, setCountryList] = useState([]);
   const [stateList, setStateList] = useState([]);
   useEffect(() => {
-    fetchEmployeeData(email);
+    fetchEmergencyData(email);
     fetchCountries();
   }, [email]);
 
-  const fetchEmployeeData = (email) => {
+  const fetchEmergencyData = (email) => {
     getEmployeeDetails(email)
       .then((response) => {
         setFormData(response.data);
@@ -219,7 +219,7 @@ const EmployeeDetails = () => {
     }),
     onSubmit: async (values) => {
       try {
-        const response = await postEmployeeDetails(values);
+        const response = await updateEmployeeDetails(values);
         if (response.status === 200) {
           alert("Details Saved Sucess Fully");
           window.location.reload();

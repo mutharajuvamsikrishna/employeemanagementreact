@@ -253,7 +253,7 @@ const FamilyDetails = () => {
   }
   console.log(formik.errors);
   return (
-    <div className="familyedit">
+    <div className="family">
       <div className="row g-3 justify-content-center align-items-center">
         <div className="col-md-12 mb-2">
           <form onSubmit={formik.handleSubmit}>

@@ -55,7 +55,7 @@ export const UserRegister = (data) => {
   }
   export const putPersonalDetails = (data1) => {
     const headers = getApiHeaders();
-    return Api.put("/personalupdateDetails",data1,headers)
+    return Api.put("/personaldetails/v1/personalupdateDetails",data1,headers)
   }
   export const postEmployeeDetails = (data) => {
     const headers = getApiHeaders();
@@ -92,4 +92,16 @@ export const UserRegister = (data) => {
   export const putBankDetails = (data) => {
     const headers = getApiHeaders();
     return Api.put("/bankdetails/v1/bankdetails-update",data,headers)
+  }
+  export const postEmergencyDetails = (data) => {
+    const headers = getApiHeaders();
+    return Api.post("/emergencydetails/v1/emergencydetails-save",data,headers)
+  }
+  export const getEmergencyDetails = (email) => {
+    const headers = getApiHeaders();
+    return Api.get(`/emergencydetails/v1/getemergencydetails?email=${email}`, headers)
+  }
+  export const updateEmergencyDetails = (data) => {
+    const headers = getApiHeaders();
+    return Api.put("/emergencydetails/v1/emergencydetails-update",data,headers)
   }
