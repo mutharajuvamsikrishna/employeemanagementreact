@@ -17,7 +17,7 @@ const FamilyDetailsEdit = () => {
     getFamilyDetails(email)
       .then((response) => {
         formik.setValues({
-            email:response.data[0].email||"",
+          email: response.data[0].email || "",
           fatherName: response.data[0].fatherName || "",
           fatherAadhar: response.data[0].fatherAadhar || "",
           fatherPanCard: response.data[0].fatherPanCard || "",
@@ -255,10 +255,16 @@ const FamilyDetailsEdit = () => {
     }),
     onSubmit: async (values) => {
       try {
+        const confirmed = window.confirm(
+          "Are you sure you want to save the changes?"
+        );
+        if (!confirmed) {
+          return;
+        }
         const response = await putFamilyDetails(values);
         if (response.status === 200) {
-          alert("Details Saved Sucess Fully")
- window.location.reload();
+          alert("Details Saved Sucess Fully");
+          window.location.reload();
         }
       } catch (error) {
         console.error(error);

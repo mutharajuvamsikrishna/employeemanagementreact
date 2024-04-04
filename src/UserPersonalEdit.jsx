@@ -22,22 +22,22 @@ const UserPersonalEdit = () => {
         formik.setValues({
           regno: response.data.regno || "",
           email: response.data.email || "",
-          aadhar: response.data.adhar||"",
-          pan: response.data.pan||"",
-          val1: response.data.val1||"",
-          status1:response.data.status1||"",
-          passportnumber:response.data.passportnumber||"",
-          exp1: response.data.exp1||"",
-          val2: response.data.val2||"",
-          status2: response.data.status2||"",
-          visanumber: response.data.visanumber||"",
-          exp2: response.data.exp2||"",
-          gender: response.data.gender||"",
-          date: response.data.date||"",
-          address: response.data.address||"",
-          city: response.data.city||"",
-          state: response.data.state||"",
-          pinnumber: response.data.pinnumber||"",
+          aadhar: response.data.adhar || "",
+          pan: response.data.pan || "",
+          val1: response.data.val1 || "",
+          status1: response.data.status1 || "",
+          passportnumber: response.data.passportnumber || "",
+          exp1: response.data.exp1 || "",
+          val2: response.data.val2 || "",
+          status2: response.data.status2 || "",
+          visanumber: response.data.visanumber || "",
+          exp2: response.data.exp2 || "",
+          gender: response.data.gender || "",
+          date: response.data.date || "",
+          address: response.data.address || "",
+          city: response.data.city || "",
+          state: response.data.state || "",
+          pinnumber: response.data.pinnumber || "",
         });
       })
       .catch((error) => {
@@ -150,7 +150,8 @@ const UserPersonalEdit = () => {
         .test(
           "fileSize",
           "File size is between 20kb and 50kb",
-          (value) => !value||value && value.size <= 51200 && value.size >= 20480 // 20kb to 50kb in bytes
+          (value) =>
+            !value || (value && value.size <= 51200 && value.size >= 20480) // 20kb to 50kb in bytes
         )
         .test(
           "fileType",
@@ -165,7 +166,8 @@ const UserPersonalEdit = () => {
         .test(
           "fileSize",
           "File size is between 20kb and 50kb",
-          (value) => !value||value && value.size <= 51200 && value.size >= 20480 // 20kb to 50kb in bytes
+          (value) =>
+            !value || (value && value.size <= 51200 && value.size >= 20480) // 20kb to 50kb in bytes
         )
         .test(
           "fileType",
@@ -180,7 +182,8 @@ const UserPersonalEdit = () => {
         .test(
           "fileSize",
           "File size is between 20kb and 50kb",
-          (value) => !value||value && value.size <= 104857600 && value.size >= 20480 // 20KB to 100MB in bytes
+          (value) =>
+            !value || (value && value.size <= 104857600 && value.size >= 20480) // 20KB to 100MB in bytes
           // 20kb to 50kb in bytes
         )
         .test("fileType", "Only PDF files are allowed", (value) => {
@@ -207,8 +210,9 @@ const UserPersonalEdit = () => {
             .test(
               "fileSize",
               "File size is between 20kb and 50kb",
-              (value) => !value||value && value.size <= 51200 && value.size >= 20480 // 20kb to 50kb in bytes
-            )
+              (value) =>
+                !value || (value && value.size <= 51200 && value.size >= 20480) // 20kb to 50kb in bytes
+            );
         } else {
           return schema; // Return the schema without any additional validation if val2 is not "Yes"
         }
@@ -233,8 +237,9 @@ const UserPersonalEdit = () => {
             .test(
               "fileSize",
               "File size is between 20kb and 50kb",
-              (value) => !value||value && value.size <= 51200 && value.size >= 20480 // 20kb to 50kb in bytes
-            )
+              (value) =>
+                !value || (value && value.size <= 51200 && value.size >= 20480) // 20kb to 50kb in bytes
+            );
         } else {
           return schema; // Return the schema without any additional validation if val2 is not "Yes"
         }
@@ -242,13 +247,19 @@ const UserPersonalEdit = () => {
     }),
     onSubmit: async (values) => {
       try {
+        const confirmed = window.confirm(
+          "Are you sure you want to save the changes?"
+        );
+        if (!confirmed) {
+          return;
+        }
         const formData = new FormData();
         Object.entries(values).forEach(([key, value]) => {
           formData.append(key, value);
         });
         const response = await putPersonalDetails(formData);
 
-        if ((response.status === 200)||(response.status === 201)){
+        if (response.status === 200 || response.status === 201) {
           alert("Details Saved Sucess Fully");
           window.location.reload();
         }
@@ -467,7 +478,6 @@ const UserPersonalEdit = () => {
                           ? "is-invalid"
                           : ""
                       }`}
-                    
                     />
                     {formik.touched.passportFile &&
                       formik.errors.passportFile && (
@@ -588,7 +598,6 @@ const UserPersonalEdit = () => {
                               ? "is-invalid"
                               : ""
                           }`}
-                         
                         />
                         {formik.touched.visaFile && formik.errors.visaFile && (
                           <div className="invalid-feedback">
@@ -647,7 +656,9 @@ const UserPersonalEdit = () => {
                   onBlur={formik.handleBlur}
                   required
                 >
-                  <option value={formik.values.city}>{formik.values.city}</option>
+                  <option value={formik.values.city}>
+                    {formik.values.city}
+                  </option>
                   {cityList.map((city, index) => (
                     <option key={index} value={city}>
                       {city}
@@ -720,7 +731,6 @@ const UserPersonalEdit = () => {
                       ? "is-invalid"
                       : ""
                   }`}
-                 
                 />
                 {formik.touched.aadharFile && formik.errors.aadharFile && (
                   <div className="invalid-feedback">
@@ -745,7 +755,6 @@ const UserPersonalEdit = () => {
                       ? "is-invalid"
                       : ""
                   }`}
-                 
                 />
                 {formik.touched.panFile && formik.errors.panFile && (
                   <div className="invalid-feedback">
@@ -770,7 +779,6 @@ const UserPersonalEdit = () => {
                       ? "is-invalid"
                       : ""
                   }`}
-                 
                 />
                 {formik.touched.otherFile && formik.errors.otherFile && (
                   <div className="invalid-feedback">
@@ -787,7 +795,10 @@ const UserPersonalEdit = () => {
           </form>
         </div>
       </div>
-      <div className="text-center" style={{ paddingTop: "30px",paddingBottom:"20px" }}>
+      <div
+        className="text-center"
+        style={{ paddingTop: "30px", paddingBottom: "20px" }}
+      >
         <a href="javascript:history.go(-1)">Go Back</a>
       </div>
     </div>

@@ -168,15 +168,11 @@ const PersonalDetails = () => {
           (value) => value && value.size <= 104857600 && value.size >= 20480 // 20KB to 100MB in bytes
           // 20kb to 50kb in bytes
         )
-        .test(
-          "fileType",
-          "Only PDF files are allowed",
-          (value) => {
-            if (!value) return true; // if no file is provided, validation passes
-            const acceptedFormats = ["application/pdf"];
-            return acceptedFormats.includes(value.type);
-          }
-        )
+        .test("fileType", "Only PDF files are allowed", (value) => {
+          if (!value) return true; // if no file is provided, validation passes
+          const acceptedFormats = ["application/pdf"];
+          return acceptedFormats.includes(value.type);
+        })
         .required("required"),
       passportFile: Yup.mixed().when("val1", (val1, schema) => {
         if (val1[0] === "Yes") {
@@ -239,7 +235,7 @@ const PersonalDetails = () => {
           formData.append(key, value);
         });
         const response = await postPersonalDetails(formData);
-        if  ((response.status === 200)||(response.status === 201)) {
+        if (response.status === 200 || response.status === 201) {
           alert("Details Saved Sucess Fully");
           window.location.reload();
         }
@@ -251,7 +247,7 @@ const PersonalDetails = () => {
   if (formData.length > 0) {
     return (
       <div>
-        <UserPersonalView/>
+        <UserPersonalView />
       </div>
     );
   }
@@ -658,8 +654,7 @@ const PersonalDetails = () => {
               </div>
               <div className="col-md-4 mb-4">
                 <label htmlFor="address">Address</label>
-                <input
-                  type="text"
+                <textarea
                   placeholder="Enter Address"
                   name="address"
                   value={formik.values.address}
@@ -674,9 +669,12 @@ const PersonalDetails = () => {
                   autoComplete="address"
                 />
                 {formik.touched.address && formik.errors.address && (
-                  <div className="invalid-feedback">{formik.errors.address}</div>
+                  <div className="invalid-feedback">
+                    {formik.errors.address}
+                  </div>
                 )}
               </div>
+
               <div className="col-md-4 mb-4">
                 <label htmlFor="pinnumber">PIN Code</label>
                 <input

@@ -75,6 +75,12 @@ const EmergencyDetailsEdit = () => {
     }),
     onSubmit: async (values) => {
       try {
+        const confirmed = window.confirm(
+          "Are you sure you want to save the changes?"
+        );
+        if (!confirmed) {
+          return;
+        }
         const response = await updateEmergencyDetails(values);
         if (response.status === 200) {
           alert("Details Saved Successfully");
@@ -200,7 +206,9 @@ const EmergencyDetailsEdit = () => {
                   onBlur={formik.handleBlur}
                   required
                 >
-                  <option value={formik.values.city}>{formik.values.city}</option>
+                  <option value={formik.values.city}>
+                    {formik.values.city}
+                  </option>
                   {cityList.map((city, index) => (
                     <option key={index} value={city}>
                       {city}

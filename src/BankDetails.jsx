@@ -35,19 +35,26 @@ const BankDetails = () => {
       bankFile: "",
     },
     validationSchema: Yup.object().shape({
-      bankName: Yup.string().required("Bank name is required"),
-      branch: Yup.string().required("Branch is required"),
+      bankName: Yup.string()
+        .matches(/^[a-zA-Z\s]*$/, "BankName should contain only alphabets")
+        .required("Bank name is required"),
+      branch: Yup.string()
+        .matches(/^[a-zA-Z\s]*$/, "BranchName should contain only alphabets")
+        .required("Branch is required"),
       ifcCode: Yup.string().required("IFSC code is required"),
       accountNumber: Yup.string()
         .matches(/^[0-9]+$/, "Account number must only contain numbers")
         .required("Account number is required"),
 
-      name: Yup.string().required("Name is required"),
+      name: Yup.string()
+        .matches(/^[a-zA-Z\s]*$/, "Name should contain only alphabets")
+        .required("Name is required"),
       bankFile: Yup.mixed()
         .test(
           "fileSize",
           "File size is between 20kb and 50kb",
-          (value) => value && value.size <= 51200 && value.size >= 20480 // 20kb to 50kb in bytes
+          (value) =>
+            !value || (value && value.size <= 51200 && value.size >= 20480) // 20kb to 50kb in bytes
         )
         .test(
           "fileType",
@@ -57,8 +64,7 @@ const BankDetails = () => {
             const acceptedFormats = ["image/jpeg", "image/jpg", "image/png"];
             return acceptedFormats.includes(value.type);
           }
-        )
-        .required("Bank file is required"),
+        ),
     }),
     onSubmit: async (values) => {
       try {

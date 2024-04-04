@@ -424,11 +424,11 @@ const EmployeeDetails = () => {
                   )}
                 </div>
                 <div className="col-md-4 mb-4">
-                  <label>PF Number</label>
+                  <label> EPF Number</label>
                   <input
                     type="text"
                     name="pf"
-                    placeholder="Enter PF Number"
+                    placeholder="Enter EPF Number"
                     className={`border  form-control ${
                       formik.touched.pf && formik.errors.pf ? "is-invalid" : ""
                     }`}
@@ -518,7 +518,7 @@ const EmployeeDetails = () => {
                   </>
                 )}
                 <div className="col-md-4 mb-4">
-                  <label>Do you have Onsite Traveld?</label>
+                  <label>Did you travel for any on-site work?</label>
                   <select
                     name="onsite"
                     style={{ appearance: "auto" }}
@@ -805,7 +805,7 @@ const EmployeeDetails = () => {
                     </div>
 
                     <div className="col-md-4 mb-4">
-                      <label>Do you Worked Previous Company1?</label>
+                      <label>Did you work in any other company before ?</label>
                       <select
                         name="prevCompany1"
                         style={{ appearance: "auto" }}

@@ -9,7 +9,7 @@ import {
   CDBSidebarFooter,
 } from "cdbreact";
 import { Button } from "react-bootstrap";
-const DashBoard = () => {
+const AdminDashBoard = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const data = location.state.data;
@@ -30,11 +30,11 @@ const DashBoard = () => {
                 size="sm"
                 style={{ height: "50px", marginBottom: "10px", width: "200px" }}
                 onClick={() =>
-                  navigate("/personaldetails", { state: { data: data } })
+                  navigate("/registers", { state: { data: data } })
                 }
               >
                 <CDBSidebarMenuItem icon="columns">
-                  PersonalDetails
+                  Registrations
                 </CDBSidebarMenuItem>
               </Button>
 
@@ -43,31 +43,7 @@ const DashBoard = () => {
                 size="sm"
                 style={{ height: "50px", marginBottom: "10px", width: "200px" }}
                 onClick={() =>
-                  navigate("/employeedetails", { state: { data: data } })
-                }
-              >
-                <CDBSidebarMenuItem icon="columns">
-                  Employee Details
-                </CDBSidebarMenuItem>
-              </Button>
-              <Button
-                variant="outline-info"
-                size="sm"
-                style={{ height: "50px", marginBottom: "10px", width: "200px" }}
-                onClick={() =>
-                  navigate("/familydetails", { state: { data: data } })
-                }
-              >
-                <CDBSidebarMenuItem icon="columns">
-                  Family Details
-                </CDBSidebarMenuItem>
-              </Button>
-              <Button
-                variant="outline-info"
-                size="sm"
-                style={{ height: "50px", marginBottom: "10px", width: "200px" }}
-                onClick={() =>
-                  navigate("/bankdetails", { state: { data: data } })
+                  navigate("/viewallbankdetails", { state: { data: data } })
                 }
               >
                 <CDBSidebarMenuItem icon="columns">
@@ -79,7 +55,9 @@ const DashBoard = () => {
                 size="sm"
                 style={{ height: "50px", marginBottom: "10px", width: "200px" }}
                 onClick={() =>
-                  navigate("/emergencydetails", { state: { data: data } })
+                  navigate("/viewallemergencydetails", {
+                    state: { data: data },
+                  })
                 }
               >
                 <CDBSidebarMenuItem icon="columns">
@@ -91,25 +69,51 @@ const DashBoard = () => {
                 size="sm"
                 style={{ height: "50px", marginBottom: "10px", width: "200px" }}
                 onClick={() =>
-                  navigate("/profile", { state: { data: data } })
+                  navigate("/viewallemployeedetails", {
+                    state: { data: data },
+                  })
                 }
               >
                 <CDBSidebarMenuItem icon="columns">
-                 Profile
+                  Employee Details
                 </CDBSidebarMenuItem>
               </Button>
-              {/* <Button
+              <Button
                 variant="outline-info"
                 size="sm"
                 style={{ height: "50px", marginBottom: "10px", width: "200px" }}
                 onClick={() =>
-                  navigate("/raisedispute", { state: { data: data } })
+                  navigate("/viewallfamilydetails", {
+                    state: { data: data },
+                  })
                 }
               >
                 <CDBSidebarMenuItem icon="columns">
-                  Dispute Details
+                  Family Details
                 </CDBSidebarMenuItem>
-              </Button> */}
+              </Button>
+              <Button
+                variant="outline-info"
+                size="sm"
+                style={{ height: "50px", marginBottom: "10px", width: "200px" }}
+                onClick={() =>
+                  navigate("/viewallpersonaldetails", {
+                    state: { data: data },
+                  })
+                }
+              >
+                <CDBSidebarMenuItem icon="columns">
+                  Personal Details
+                </CDBSidebarMenuItem>
+              </Button>
+              <Button
+                variant="outline-info"
+                size="sm"
+                style={{ height: "50px", marginBottom: "10px", width: "200px" }}
+                onClick={() => navigate("/profile", { state: { data: data } })}
+              >
+                <CDBSidebarMenuItem icon="columns">Profile</CDBSidebarMenuItem>
+              </Button>
             </CDBSidebarMenu>
           </CDBSidebarContent>
           <CDBSidebarFooter style={{ textAlign: "center" }}>
@@ -126,4 +130,4 @@ const DashBoard = () => {
   );
 };
 
-export default DashBoard;
+export default AdminDashBoard;

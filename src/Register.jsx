@@ -214,8 +214,8 @@ const Register = () => {
                     required
                   >
                     <option value="">Select</option>
-                    <option value="Role_USER">USER</option>
-                    <option value="Role_ADMIN">ADMIN</option>
+                    <option value="ROLE_USER">USER</option>
+                    <option value="ROLE_ADMIN">ADMIN</option>
                   </select>
                   {formik.touched.roles && formik.errors.roles && (
                     <div className="invalid-feedback">

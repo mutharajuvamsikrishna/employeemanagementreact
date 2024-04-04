@@ -16,7 +16,6 @@ const Otp = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setLoading(true);
     const otpdata = {
       otp: otp,
       mob: data.mob,
@@ -27,7 +26,7 @@ const Otp = () => {
       alert("OTP must be 6 digits numeric");
       return false;
     }
-
+setLoading(true);
     postUserOtp(otpdata)
       .then((response) => {
         if (response.status === 200) {

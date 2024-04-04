@@ -13,7 +13,7 @@ const EditEmployeeDetails = () => {
   const [formData, setFormData] = useState([]);
   const [countryList, setCountryList] = useState([]);
   const [stateList, setStateList] = useState([]);
-  const [city,setCity]=useState("");
+  const [city, setCity] = useState("");
   useEffect(() => {
     fetchEmployeeData(email);
     fetchCountries();
@@ -22,10 +22,10 @@ const EditEmployeeDetails = () => {
   const fetchEmployeeData = (email) => {
     getEmployeeDetails(email)
       .then((response) => {
-        setCity(response.data[0].cities)
+        setCity(response.data[0].cities);
         formik.setValues({
-          laptopId:response.data[0].laptopId||"",
-          email:response.data[0].email||"",
+          laptopId: response.data[0].laptopId || "",
+          email: response.data[0].email || "",
           totalExperience: response.data[0].totalExperience || "",
           currentCtc: response.data[0].currentCtc || "",
           role: response.data[0].role || "",
@@ -84,7 +84,7 @@ const EditEmployeeDetails = () => {
 
   const formik = useFormik({
     initialValues: {
-      laptopId:"",
+      laptopId: "",
       email: "",
       totalExperience: "",
       currentCtc: "",
@@ -254,10 +254,16 @@ const EditEmployeeDetails = () => {
     }),
     onSubmit: async (values) => {
       try {
+        const confirmed = window.confirm(
+          "Are you sure you want to save the changes?"
+        );
+        if (!confirmed) {
+          return;
+        }
         const response = await postEmployeeDetails(values);
         if (response.status === 200) {
-          alert("Details Saved Sucess Fully")
- window.location.reload();
+          alert("Details Saved Sucess Fully");
+          window.location.reload();
         }
       } catch (error) {
         console.error(error);
@@ -459,11 +465,11 @@ const EditEmployeeDetails = () => {
                   )}
                 </div>
                 <div className="col-md-4 mb-4">
-                  <label>PF Number</label>
+                  <label> EPF Number</label>
                   <input
                     type="text"
                     name="pf"
-                    placeholder="Enter PF Number"
+                    placeholder="Enter EPF Number"
                     className={`border  form-control ${
                       formik.touched.pf && formik.errors.pf ? "is-invalid" : ""
                     }`}
@@ -554,7 +560,7 @@ const EditEmployeeDetails = () => {
                     </>
                   )}
                 <div className="col-md-4 mb-4">
-                  <label>Do you have Onsite Traveld?</label>
+                  <label>Did you travel for any on-site work?</label>
                   <select
                     name="onsite"
                     style={{ appearance: "auto" }}
@@ -585,7 +591,7 @@ const EditEmployeeDetails = () => {
                       <select
                         name="countries"
                         id="countries"
-                        style={{appearance:"auto"}}
+                        style={{ appearance: "auto" }}
                         className={`border form-control ${
                           formik.touched.countries && formik.errors.countries
                             ? "is-invalid"
@@ -623,13 +629,15 @@ const EditEmployeeDetails = () => {
                             ? "is-invalid"
                             : ""
                         }`}
-                        style={{appearance:"auto"}}
+                        style={{ appearance: "auto" }}
                         value={formik.values.cities}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         required
                       >
-                        <option value={formik.values.cities}>{formik.values.cities}</option>
+                        <option value={formik.values.cities}>
+                          {formik.values.cities}
+                        </option>
                         {stateList.map((city, index) => (
                           <option key={index} value={city}>
                             {city}
@@ -841,7 +849,7 @@ const EditEmployeeDetails = () => {
                     </div>
 
                     <div className="col-md-4 mb-4">
-                      <label>Do you Worked Previous Company1?</label>
+                      <label>Did you work in any other company before ?</label>
                       <select
                         name="prevCompany1"
                         style={{ appearance: "auto" }}

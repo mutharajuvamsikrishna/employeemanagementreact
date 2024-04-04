@@ -5,13 +5,13 @@ import * as Yup from "yup";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { postUserLogin } from "./Services/Api";
-import OnieLogin from './Images/employeelogin.png'; 
-import './Login.css';
+import OnieLogin from "./Images/employeelogin.png";
+import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
   const [res, setRes] = useState(false);
-  
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -25,7 +25,7 @@ const Login = () => {
         .required("Email is required"),
 
       password: Yup.string()
-        .min(6, 'Password should be at least 6 characters')
+        .min(6, "Password should be at least 6 characters")
         .required("Password is required"),
     }),
     onSubmit: async (values) => {
@@ -40,8 +40,12 @@ const Login = () => {
         const response = await postUserLogin(values);
 
         if (response.status === 200) {
-          localStorage.setItem('jwtToken', response.data.jwt);
+          localStorage.setItem("jwtToken", response.data.jwt);
+          if(response.data.role==="ROLE_USER"){
           navigate("/dashboard", { state: { data: values } });
+          }else if(response.data.role==="ROLE_ADMIN"){
+            navigate("/admindashboard", { state: { data: values } });
+          }
         }
       } catch (error) {
         setRes(true);
@@ -64,21 +68,25 @@ const Login = () => {
         <div className="d-flex onieimg" style={{ paddingLeft: "100px" }}>
           <div className="">
             <img
-              className=''
+              className=""
               src={OnieLogin}
               alt="ONiE SOFT"
               width="350px"
               height="250px"
             />
-            <br/>
-            <h6 style={{ paddingLeft: "50px" }}>Manage All Your Payments Easily</h6>
+            <br />
+            <h6 style={{ paddingLeft: "50px" }}>
+              Manage All Your Payments Easily
+            </h6>
           </div>
           <div className="row g-3 d-flex me-3 userlogin">
             <div className="col-md-7 mb-2">
               <center>
                 <form className="form-login" onSubmit={formik.handleSubmit}>
                   <div className="text-danger">
-                    {res && <h5 className="text-center">Invalid Credentials</h5>}
+                    {res && (
+                      <h5 className="text-center">Invalid Credentials</h5>
+                    )}
                   </div>
                   <h3 className="mb-3">Login to ONiE Soft Employee</h3>
                   <div id="register" className="col-md-7 mb-4">
@@ -99,7 +107,9 @@ const Login = () => {
                     />
 
                     {formik.touched.email && formik.errors.email && (
-                      <div className="invalid-feedback">{formik.errors.email}</div>
+                      <div className="invalid-feedback">
+                        {formik.errors.email}
+                      </div>
                     )}
                   </div>
 
@@ -129,12 +139,17 @@ const Login = () => {
                         {formik.values.showPassword ? (
                           <FaEye style={{ height: "20px", width: "20px" }} />
                         ) : (
-                          <FaEyeSlash style={{ height: "20px", width: "20px" }} />
+                          <FaEyeSlash
+                            style={{ height: "20px", width: "20px" }}
+                          />
                         )}
                       </button>
                     </div>
                     {formik.touched.password && formik.errors.password && (
-                      <div style={{ display: "flex" }} className="invalid-feedback">
+                      <div
+                        style={{ display: "flex" }}
+                        className="invalid-feedback"
+                      >
                         {formik.errors.password}
                       </div>
                     )}
@@ -143,19 +158,26 @@ const Login = () => {
                   <button
                     className="btn btn-primary"
                     type="submit"
-                    style={{ width: "50%", fontWeight: "bold", fontSize: "15px" }}
+                    style={{
+                      width: "50%",
+                      fontWeight: "bold",
+                      fontSize: "15px",
+                    }}
                   >
                     Sign In
                   </button>
                   <div className="pt-3">
                     <Link to="/forgetpassword">Forgotten account?</Link>
                     <div style={{ paddingTop: "20px" }}>
-                      <button className="btn btn-success" onClick={handleSubmit1}>
+                      <button
+                        className="btn btn-success"
+                        onClick={handleSubmit1}
+                      >
                         SignUp
                       </button>
                     </div>
-                   
-                    <br/>
+
+                    <br />
                   </div>
                 </form>
               </center>
@@ -163,7 +185,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-
     </>
   );
 };
