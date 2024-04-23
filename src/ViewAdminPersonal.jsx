@@ -435,7 +435,7 @@ const ViewAdminPersonal = () => {
         )}
       </div>
       <center>
-        <a href="javascript:history.go(-1)">Go Back</a>
+        
       </center>
       <br />
       <br />

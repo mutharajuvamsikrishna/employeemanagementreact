@@ -2,28 +2,31 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { postUserLogin } from "./Services/Api";
 import OnieLogin from "./Images/employeelogin.png";
 import "./Login.css";
+import { Modal, DropdownButton, Dropdown } from "react-bootstrap";
 
 const Login = () => {
   const navigate = useNavigate();
   const [res, setRes] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+  const [formData, setFormData] = useState({});
+  const [dropdownOptions, setDropdownOptions] = useState([]);
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
       showPassword: false,
-      showPassword1: false,
     },
     validationSchema: Yup.object({
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
-
       password: Yup.string()
         .min(6, "Password should be at least 6 characters")
         .required("Password is required"),
@@ -38,13 +41,18 @@ const Login = () => {
       }
       try {
         const response = await postUserLogin(values);
-
         if (response.status === 200) {
           localStorage.setItem("jwtToken", response.data.jwt);
-          if(response.data.role==="ROLE_USER"){
-          navigate("/dashboard", { state: { data: values } });
-          }else if(response.data.role==="ROLE_ADMIN"){
-            navigate("/admindashboard", { state: { data: values } });
+          if (response.data.role === "ROLE_USER") {
+            navigate("/dashboard", { state: { data: values } });
+          } else if (response.data.role === "ROLE_ADMIN") {
+            setFormData(values);
+            handleShow();
+            setDropdownOptions(["User", "Admin"]);
+          } else if (response.data.role === "ROLE_SUPERADMIN") {
+            setFormData(values);
+            handleShow();
+            setDropdownOptions(["User", "SuperAdmin"]);
           }
         }
       } catch (error) {
@@ -62,130 +70,159 @@ const Login = () => {
     navigate("/reg");
   };
 
+  const handleSelectRole = (role) => {
+    const values = {
+      email: formData.email,
+    };
+    if (role === "user") {
+      navigate("/dashboardlayout", { state: { data: values } });
+    } else {
+      navigate(`/${role}dashboardlayout`, { state: { data: values } });
+    }
+  };
+
   return (
-    <>
-      <div className="row">
-        <div className="d-flex onieimg" style={{ paddingLeft: "100px" }}>
-          <div className="">
-            <img
-              className=""
-              src={OnieLogin}
-              alt="ONiE SOFT"
-              width="350px"
-              height="250px"
-            />
-            <br />
-            <h6 style={{ paddingLeft: "50px" }}>
-              Manage All Your Payments Easily
-            </h6>
-          </div>
-          <div className="row g-3 d-flex me-3 userlogin">
-            <div className="col-md-7 mb-2">
-              <center>
-                <form className="form-login" onSubmit={formik.handleSubmit}>
-                  <div className="text-danger">
-                    {res && (
-                      <h5 className="text-center">Invalid Credentials</h5>
-                    )}
-                  </div>
-                  <h3 className="mb-3">Login to ONiE Soft Employee</h3>
-                  <div id="register" className="col-md-7 mb-4">
-                    <label>Email</label>
+    <div className="row">
+      <div className="d-flex onieimg" style={{ paddingLeft: "100px" }}>
+        <div className="">
+          <img
+            className=""
+            src={OnieLogin}
+            alt="ONiE SOFT"
+            width="450px"
+            height="350px"
+          />
+          <br />
+          <h6 style={{ paddingLeft: "50px" }}>Made Management Easily</h6>
+        </div>
+        <div className="row g-3 d-flex me-3 userlogin">
+          <div className="col-md-7 mb-2">
+            <center>
+              <form className="form-login" onSubmit={formik.handleSubmit}>
+                <div className="text-danger">
+                  {res && (
+                    <h5 className="text-center">Invalid Credentials</h5>
+                  )}
+                </div>
+                <h3 className="mb-3">Login to ONiE Soft Employee</h3>
+                <div id="register" className="col-md-7 mb-4">
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    name="email"
+                    placeholder="Enter Email"
+                    className={`form-control ${
+                      formik.touched.email && formik.errors.email
+                        ? "is-invalid"
+                        : ""
+                    }`}
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    required
+                  />
+                  {formik.touched.email && formik.errors.email && (
+                    <div className="invalid-feedback">
+                      {formik.errors.email}
+                    </div>
+                  )}
+                </div>
+                <div id="register" className="col-md-7 mb-4">
+                  <label>Password</label>
+                  <div className="input-group">
                     <input
-                      type="text"
-                      name="email"
-                      placeholder="Enter Email"
+                      type={formik.values.showPassword ? "text" : "password"}
+                      name="password"
+                      placeholder="Enter Password"
                       className={`form-control ${
-                        formik.touched.email && formik.errors.email
+                        formik.touched.password && formik.errors.password
                           ? "is-invalid"
                           : ""
                       }`}
-                      value={formik.values.email}
+                      value={formik.values.password}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       required
                     />
-
-                    {formik.touched.email && formik.errors.email && (
-                      <div className="invalid-feedback">
-                        {formik.errors.email}
-                      </div>
-                    )}
+                    <button
+                      type="button"
+                      className=""
+                      style={{ border: "1px solid white" }}
+                      onClick={setResponse}
+                    >
+                      {formik.values.showPassword ? (
+                        <FaEye style={{ height: "20px", width: "20px" }} />
+                      ) : (
+                        <FaEyeSlash
+                          style={{ height: "20px", width: "20px" }}
+                        />
+                      )}
+                    </button>
                   </div>
-
-                  <div id="register" className="col-md-7 mb-4">
-                    <label>Password</label>
-                    <div className="input-group">
-                      <input
-                        type={formik.values.showPassword ? "text" : "password"}
-                        name="password"
-                        placeholder="Enter Password"
-                        className={`form-control ${
-                          formik.touched.password && formik.errors.password
-                            ? "is-invalid"
-                            : ""
-                        }`}
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        required
-                      />
-                      <button
-                        type="button"
-                        className=""
-                        style={{ border: "1px solid white" }}
-                        onClick={setResponse}
-                      >
-                        {formik.values.showPassword ? (
-                          <FaEye style={{ height: "20px", width: "20px" }} />
-                        ) : (
-                          <FaEyeSlash
-                            style={{ height: "20px", width: "20px" }}
-                          />
-                        )}
-                      </button>
+                  {formik.touched.password && formik.errors.password && (
+                    <div
+                      style={{ display: "flex" }}
+                      className="invalid-feedback"
+                    >
+                      {formik.errors.password}
                     </div>
-                    {formik.touched.password && formik.errors.password && (
-                      <div
-                        style={{ display: "flex" }}
-                        className="invalid-feedback"
-                      >
-                        {formik.errors.password}
-                      </div>
-                    )}
+                  )}
+                </div>
+                <button
+                  className="btn btn-primary"
+                  type="submit"
+                  style={{
+                    width: "40%",
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                  }}
+                >
+                  Sign In
+                </button>
+                <div className="pt-3">
+                  <Link to="/forgetpassword">Forgotten account?</Link>
+                  <div style={{ paddingTop: "20px" }}>
+                    <button
+                      className="btn btn-success"
+                      onClick={handleSubmit1}
+                    >
+                      SignUp
+                    </button>
                   </div>
-
-                  <button
-                    className="btn btn-primary"
-                    type="submit"
-                    style={{
-                      width: "50%",
-                      fontWeight: "bold",
-                      fontSize: "15px",
-                    }}
-                  >
-                    Sign In
-                  </button>
-                  <div className="pt-3">
-                    <Link to="/forgetpassword">Forgotten account?</Link>
-                    <div style={{ paddingTop: "20px" }}>
-                      <button
-                        className="btn btn-success"
-                        onClick={handleSubmit1}
-                      >
-                        SignUp
-                      </button>
-                    </div>
-
-                    <br />
-                  </div>
-                </form>
-              </center>
-            </div>
+                  <br />
+                </div>
+              </form>
+            </center>
           </div>
         </div>
       </div>
-    </>
+      <Modal
+        show={showModal}
+        onHide={handleClose}
+        centered
+        style={{ height: "600px" }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Login Success</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="dropdown-style">
+            <DropdownButton
+              title="Select DashBoard"
+              onSelect={handleSelectRole}
+              variant="outline-primary"
+              className="custom-dropdown"
+            >
+              {dropdownOptions.map((option, index) => (
+                <Dropdown.Item key={index} eventKey={option.toLowerCase()}>
+                  {option}
+                </Dropdown.Item>
+              ))}
+            </DropdownButton>
+          </div>
+        </Modal.Body>
+      </Modal>
+    </div>
   );
 };
 

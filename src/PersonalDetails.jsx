@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import "./PersonalDetails.css";
 import UserPersonalView from "./UserPersonalView";
 import { Country, State, City } from "country-state-city";
-const PersonalDetails = () => {
+const PersonalDetails = ({employee}) => {
   const navigate = useNavigate(); // Import useNavigate
   const location = useLocation();
   const email = location.state.data.email;
@@ -782,7 +782,7 @@ const PersonalDetails = () => {
         </div>
       </div>
       <div className="text-center" style={{ paddingTop: "30px" }}>
-        <a href="javascript:history.go(-1)">Go Back</a>
+        
       </div>
     </div>
   );

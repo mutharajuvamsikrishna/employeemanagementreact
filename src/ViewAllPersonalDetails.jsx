@@ -61,7 +61,7 @@ const ViewAllPersonalDetails = () => {
     const data = {
       email: email,
     };
-    navigate("/viewadminpersonal", { state: { data: data } });
+    navigate("/admindashboardlayout/viewadminpersonal", { state: { data: data } });
   };
   return (
     <>
@@ -170,7 +170,7 @@ const ViewAllPersonalDetails = () => {
           </>
         )}
         <div className="text-center" style={{ paddingTop: "30px" }}>
-          <a href="javascript:history.go(-1)">Go Back</a>
+          
         </div>
       </div>
     </>

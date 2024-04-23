@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { postUserForgetPassword } from "./Services/Api";
-const ForgetpasswordOtp = () => {
+const ForgetPasswordOtp = () => {
   const navigate = useNavigate();
   const [res, setRes] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -139,4 +139,4 @@ const ForgetpasswordOtp = () => {
     </>
   );
 };
-export default ForgetpasswordOtp;
+export default ForgetPasswordOtp;

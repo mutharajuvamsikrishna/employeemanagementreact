@@ -1,7 +1,7 @@
 import React from 'react';
 import OnieLogoImage from './Images/oniesoft-final1.png'; 
 import './Logo.css'
-const Onielogo = () => {
+const Logo = () => {
   return (
     <div className="logo-container">
       <a href="/">
@@ -15,4 +15,4 @@ const Onielogo = () => {
   );
 };
 
-export default Onielogo;
+export default Logo;

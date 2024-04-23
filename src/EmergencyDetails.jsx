@@ -89,7 +89,7 @@ if(formData.length>0){
   return (
     <div className="emer">
       <div className="row g-3 justify-content-center align-items-center">
-        <h4 className="text-center text-primary">Employee Details</h4>
+        <h4 className="text-center text-primary">Emergency Details</h4>
         <div className="col-md-12 mb-2">
           <form onSubmit={formik.handleSubmit}>
             <div className="row">
@@ -222,7 +222,7 @@ if(formData.length>0){
         </div>
       </div>
       <div className="text-center" style={{ paddingTop: "30px" }}>
-        <a href="javascript:history.go(-1)">Go Back</a>
+        
       </div>
     </div>
   );

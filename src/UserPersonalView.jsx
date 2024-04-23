@@ -432,10 +432,10 @@ const UserPersonalView = () => {
         )}
       </div>
       <div className="text-center"style={{paddingTop:"20px",paddingBottom:"20px"}}>
-        <button className="btn btn-primary" onClick={()=>navigate("/editpersonaldetails",{state:{data:data}})}>Edit</button>
+        <button className="btn btn-primary" onClick={()=>navigate("/dashboardlayout/editpersonaldetails",{state:{data:data}})}>Edit</button>
       </div>
       <center>
-        <a href="javascript:history.go(-1)">Go Back</a>
+        
       </center>
       <br />
       <br />

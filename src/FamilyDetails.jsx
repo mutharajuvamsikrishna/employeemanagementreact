@@ -806,7 +806,7 @@ const FamilyDetails = () => {
         </div>
       </div>
       <div className="text-center" style={{ paddingTop: "30px" }}>
-          <a href="javascript:history.go(-1)">Go Back</a>
+          
         </div>
     </div>
   );

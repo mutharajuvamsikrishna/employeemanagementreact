@@ -1,0 +1,13 @@
+.raiseticket{
+    padding-top: 10px;
+    padding-left: 50px;
+    display: flex;
+}
+.main-type-button {
+    padding: 10px;
+    align-items: center;
+  }
+  .sub-departments{
+    padding: 10px;
+  }
+  

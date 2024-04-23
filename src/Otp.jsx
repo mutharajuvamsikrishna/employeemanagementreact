@@ -107,7 +107,7 @@ setLoading(true);
           </Modal.Footer>
         </Modal>
         <br />
-        <a href="javascript:history.go(-1)">Go Back</a>
+        
       </center>
     </div>
   );

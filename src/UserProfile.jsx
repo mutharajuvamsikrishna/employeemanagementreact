@@ -1,42 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, Link } from "react-router-dom";
-import "./UserProfile.css"
+import "./UserProfile.css";
 import { SlLogout } from "react-icons/sl";
-import { getProfiles} from "./Services/Api";
 import { useNavigate } from "react-router-dom";
-const Profile = () => {
-  const [employee, setEmployee] = useState(null);
+import ProfileImage from "./ProfileImage";
+const UserProfile = ({ employee }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const email = location.state.data.email;
   const data = {
     email: email,
   };
-  useEffect(() => {
-    fetchEmployee(email);
-  }, [email]);
-
   const handleLogOut = () => {
     localStorage.clear();
     navigate("/");
   };
-
-  const fetchEmployee = (email) => {
-    // axios
-    //  .get(`http://localhost:1279/reg?email=${email}`)
-    getProfiles(email)
-      .then((response) => {
-        setEmployee(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-        if (!localStorage.getItem("jwtToken")) {
-          navigate("/");
-        }
-      });
-  };
-
   return (
     <div className="profile" style={{ padding: "7%" }}>
       <div>
@@ -59,7 +38,7 @@ const Profile = () => {
                 <tbody>
                   <tr>
                     <td>Name</td>
-                    <td>{employee.ename}</td>
+                    <td>{employee.name}</td>
 
                     <td>Email</td>
                     <td>{employee.email}</td>
@@ -73,11 +52,19 @@ const Profile = () => {
                 </tbody>
               </table>
             </center>
+            <div>
+              <button
+                className="btn btn-primary"
+                onClick={() => navigate("/admindashboardlayout/avatar", { state: { data: data } })}
+              >
+                Upload Avatar
+              </button>
+            </div>
             <div className="profile-info">
               <br />
               <center>
                 <button onClick={handleLogOut}>
-                  <SlLogout style={{ height: "50px", width: "50px" }} />
+                  <SlLogout style={{ height: "20px", width: "20px" }} />
                   <br />
                   LogOut
                 </button>
@@ -87,11 +74,9 @@ const Profile = () => {
         )}
       </div>
       <br /> <br />
-      <center>
-        <a href="javascript:history.go(-1)">Go Back</a>
-      </center>
+      <center></center>
     </div>
   );
 };
 
-export default Profile;
+export default UserProfile;

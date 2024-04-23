@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 import { putPersonalDetails, getPersonalDetails } from "./Services/Api";
 import * as Yup from "yup";
-import "./PersonalDetails.css";
+import "./PersonalDetailsEdit.css";
 import { Country, State, City } from "country-state-city";
 const UserPersonalEdit = () => {
   const navigate = useNavigate(); // Import useNavigate
@@ -270,7 +270,7 @@ const UserPersonalEdit = () => {
   });
   console.log(formik.errors);
   return (
-    <div className="personaldetails">
+    <div className="personaldetailsEdit">
       <div className="row g-3 justify-content-center align-items-center">
         <h4 className="text-center text-primary">Personal Details</h4>
         <div className="col-md-12 mb-2">
@@ -799,7 +799,7 @@ const UserPersonalEdit = () => {
         className="text-center"
         style={{ paddingTop: "30px", paddingBottom: "20px" }}
       >
-        <a href="javascript:history.go(-1)">Go Back</a>
+        
       </div>
     </div>
   );

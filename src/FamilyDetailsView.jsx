@@ -142,14 +142,14 @@ const FamilyDetailsView = () => {
           <button
             className="btn btn-primary"
             onClick={() =>
-              navigate("/familydetailsedit", { state: { data: data } })
+              navigate("/dashboardlayout/familydetailsedit", { state: { data: data } })
             }
           >
             Edit
           </button>
         </div>
         <div className="text-center" style={{ paddingTop: "30px" }}>
-          <a href="javascript:history.go(-1)">Go Back</a>
+          
         </div>
       </div>
     </>

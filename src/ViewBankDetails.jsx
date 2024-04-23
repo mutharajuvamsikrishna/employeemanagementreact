@@ -86,14 +86,14 @@ const ViewBankDetails = () => {
           <button
             className="btn btn-primary"
             onClick={() =>
-              navigate("/bankdetailsedit", { state: { data: data } })
+              navigate("/dashboardlayout/bankdetailsedit", { state: { data: data } })
             }
           >
             Edit
           </button>
         </div>
         <div className="text-center" style={{ paddingTop: "20px" }}>
-          <a href="javascript:history.go(-1)">Go Back</a>
+          
         </div>
       </div>
     </>
