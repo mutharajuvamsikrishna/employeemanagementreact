@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DashboardLayout from "./DashboardLayout";
 import Home from "./Home";
 import AdminDashboardLayout from "./AdminDashBoardLayOut";
+import SuperAdminDashboardLayOut from "./SuperAdminDashboardLayOut";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
           <Route path="/dashboardlayout/*" element={<DashboardLayout />} />
           <Route path="/*" element={<Home />} />
           <Route path="/admindashboardlayout/*" element={<AdminDashboardLayout />} />
+          <Route path="/superadmindashboardlayout/*" element={<SuperAdminDashboardLayOut />} />
         </Routes>
       </Router>
     </div>

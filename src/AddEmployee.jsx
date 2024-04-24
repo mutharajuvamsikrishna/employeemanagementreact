@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { UserRegister, getAllReisters } from "./Services/Api";
+import { UserRegisterByAdmin, getAllReisters } from "./Services/Api";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import "./Application.css";
 import OniebgImage from "./Images/employeemanagementregisterimg.svg";
-const Register = () => {
+const AddEmployee = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState([]);
   const [isEmailExists, setIsEmailExists] = useState(false);
+const location=useLocation();
+const data=location.state?.data.email;
   useEffect(() => {
     fetchEmployees();
   }, []);
@@ -28,16 +30,18 @@ const Register = () => {
   };
   const formik = useFormik({
     initialValues: {
+      personalEmail:"",
       email: "",
       name: "",
       mob: "",
-      password: "",
+      designation: "",
       roles: "",
-      cnpassword: "",
-      showPassword: false,
-      showPassword1: false,
+      ctc: "",
     },
     validationSchema: Yup.object({
+      personalEmail:Yup.string()
+      .email("Invalid email address")
+      .required("PersonalEmail is required"),
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
@@ -48,10 +52,8 @@ const Register = () => {
         .matches(/^\d{10}$/, "Invalid mobile number")
         .required("Mobile number is required"),
       roles: Yup.string().required("Role is required"),
-      password: Yup.string().required("Password is required"),
-      cnpassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Passwords must match")
-        .required("Confirm Password is required"),
+      designation: Yup.string().required("designation is required"),
+      ctc: Yup.string().required("CTC is required"),
     }),
     onSubmit: async (values, { setFieldError }) => {
       try {
@@ -59,16 +61,7 @@ const Register = () => {
           (user) => user.email === values.email
         );
         const isMobExists = formData.some((user) => user.mob === values.mob);
-        if (
-          !values.password.match(
-            /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*&@#]).{6,}/
-          )
-        ) {
-          alert(
-            "Password Should Minimum 6 Digits,Should have at least one uppercase and  Lowercase,One Numeric And Special Symbols Like @,&,*,#"
-          );
-          return;
-        }
+       
         if (isEmailExists) {
           setFieldError("email", "Email is already in use.");
           return;
@@ -80,9 +73,10 @@ const Register = () => {
         }
         setFieldError("mob", "");
         setLoading(true);
-        const response = await UserRegister(values);
+        const response = await UserRegisterByAdmin(values);
         if (response.status === 200) {
-          navigate("/otp", { state: { data: values } }); // Use navigate to change the route
+     alert("Details Saved SuccesFully")
+     navigate("/superadmindashboardlayout/registers",{state:{data:data}})
         }
       } catch (error) {
         console.error(error);
@@ -90,18 +84,11 @@ const Register = () => {
     },
   });
 
-  const setResponse = () => {
-    formik.setFieldValue("showPassword", !formik.values.showPassword);
-  };
-
-  const setResponse1 = () => {
-    formik.setFieldValue("showPassword1", !formik.values.showPassword1);
-  };
   if (loading) {
     return (
       <div
         className="d-flex justify-content-center align-items-center"
-        style={{ height: "100vh" }}
+        style={{ height: "99vh",paddingLeft:"400px" }}
       >
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading...</span>
@@ -131,10 +118,34 @@ const Register = () => {
                 className="mb-4 text-center mt-4"
                 style={{ fontFamily: "inherit" }}
               >
-                Sign Up For ONiE Soft Employee
+                Add New Employee
               </h3>
 
               <div className="row">
+              <div id="register" className="col-md-6 mb-4">
+                  <label className="col-md-5">Personal Email</label>
+                  <input
+                    type="text"
+                    name="personalEmail"
+                    placeholder="Enter Personal Email"
+                    className={` form-control ${
+                      formik.touched.personalEmail && formik.errors.personalEmail
+                        ? "is-invalid"
+                        : ""
+                    }`}
+                    value={formik.values.personalEmail}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    required
+                  />
+                  {formik.touched.personalEmail && formik.errors.personalEmail && (
+                    <div className="invalid-feedback">
+                      {formik.errors.personalEmail}
+                    </div>
+                  )}
+                </div>
+
+
                 <div id="register" className="col-md-6 mb-4">
                   <label className="col-md-2">Email</label>
                   <input
@@ -225,80 +236,56 @@ const Register = () => {
                 </div>
 
                 <div id="register" className="col-md-6 mb-4">
-                  <label>Password</label>
-                  <div className="input-group">
+                  <label>Designation</label>
+                  <div>
                     <input
-                      type={formik.values.showPassword ? "text" : "password"}
-                      name="password"
-                      placeholder="Enter Password"
+                      type="text"
+                      name="designation"
+                      placeholder="Enter Designation"
                       className={` form-control ${
-                        formik.touched.password && formik.errors.password
+                        formik.touched.designation && formik.errors.designation
                           ? "is-invalid"
                           : ""
                       }`}
-                      value={formik.values.password}
+                      value={formik.values.designation}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       required
                     />
-                    <button
-                      type="button"
-                      style={{ border: "1px solid black" }}
-                      className="btn btn-"
-                      onClick={setResponse}
-                    >
-                      {formik.values.showPassword ? (
-                        <FaEye style={{ height: "20px", width: "20px" }} />
-                      ) : (
-                        <FaEyeSlash style={{ height: "20px", width: "20px" }} />
-                      )}
-                    </button>
                   </div>
-                  {formik.touched.password && formik.errors.password && (
+                  {formik.touched.designation && formik.errors.designation && (
                     <div
                       style={{ display: "flex" }}
                       className="invalid-feedback"
                     >
-                      {formik.errors.password}
+                      {formik.errors.designation}
                     </div>
                   )}
                 </div>
                 <div id="register" className="col-md-6 mb-4">
-                  <label>Confirm Password</label>
-                  <div className="input-group">
+                  <label>CTC</label>
+                  <div>
                     <input
-                      type={formik.values.showPassword1 ? "text" : "password"}
-                      name="cnpassword"
-                      placeholder="Enter Confirm Password"
+                      type="text"
+                      name="ctc"
+                      placeholder="Enter CTC"
                       className={` form-control ${
-                        formik.touched.cnpassword && formik.errors.cnpassword
+                        formik.touched.ctc && formik.errors.ctc
                           ? "is-invalid"
                           : ""
                       }`}
-                      value={formik.values.cnpassword}
+                      value={formik.values.ctc}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       required
                     />
-                    <button
-                      type="button"
-                      style={{ border: "1px solid black" }}
-                      className="btn btn-"
-                      onClick={setResponse1}
-                    >
-                      {formik.values.showPassword1 ? (
-                        <FaEye style={{ height: "20px", width: "20px" }} />
-                      ) : (
-                        <FaEyeSlash style={{ height: "20px", width: "20px" }} />
-                      )}
-                    </button>
                   </div>
-                  {formik.touched.cnpassword && formik.errors.cnpassword && (
+                  {formik.touched.ctc && formik.errors.ctc && (
                     <div
                       style={{ display: "flex" }}
                       className="invalid-feedback"
                     >
-                      {formik.errors.cnpassword}
+                      {formik.errors.ctc}
                     </div>
                   )}
                 </div>
@@ -307,21 +294,16 @@ const Register = () => {
               <button
                 className="btn btn-primary"
                 type="submit"
-                style={{ width: "150px" }}
+                style={{ width: "150px", marginBottom: "30px" }}
               >
                 Submit
               </button>
             </form>
           </center>
-          <div style={{ paddingTop: "40px", paddingBottom: "40px" }}>
-            <center>
-              <Link to="/">Login, if you have an account!</Link>
-            </center>
-          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Register;
+export default AddEmployee;

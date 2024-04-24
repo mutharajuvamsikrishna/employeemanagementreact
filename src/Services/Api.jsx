@@ -26,6 +26,10 @@ export const getProfiles = (email) => {
 export const UserRegister = (data) => {
   return Api.post("/register/v1/sendotp", data);
 };
+export const UserRegisterByAdmin = (data) => {
+  const headers = getApiHeaders();
+  return Api.post("/register/v1/addemployee", data,headers);
+};
 export const getAllReisters = () => {
   return Api.get("/register/v1/getallreg");
 };
@@ -240,7 +244,7 @@ export const getUserCheckList = (email) => {
 };
 export const postAdminCheckList = (data) => {
   const headers = getApiHeaders();
-  return Api.post("/checklist/v1/adminchecklist-save", data);
+  return Api.post("/checklist/v1/adminchecklist-save", data,headers);
 };
 export const getAdminCheckList = (email) => {
   const headers = getApiHeaders();

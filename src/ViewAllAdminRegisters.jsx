@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import {
   getAllAdminRegisterDetails,
   searchAdminRegisterDetails,
@@ -10,7 +10,11 @@ import { MdDelete } from "react-icons/md";
 const ViewAllAdminRegister = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
+  const navigate=useNavigate();
   const email = location.state.data.email;
+  const data={
+    email:email
+  }
   const [formData, setFormData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
@@ -55,6 +59,10 @@ const ViewAllAdminRegister = () => {
         console.error(error);
       });
   };
+  const handleNavigate=(event)=>{
+   event.preventDefault();
+   navigate("/superadmindashboardlayout/addnewemployee",{state:{data:data}})
+  }
   return (
     <>
       <div className="adminreg">
@@ -69,6 +77,7 @@ const ViewAllAdminRegister = () => {
                 marginTop: "20px",
               }}
             >
+            
               <form onSubmit={(event) => event.preventDefault()}>
                 <input
                   type="text"
@@ -110,7 +119,10 @@ const ViewAllAdminRegister = () => {
               </form>
             </div>
             <h2 className="text-center mt-2">Admin Registrations</h2>
-            <table className="table table-striped table-bordered">
+            <div className="mt-2">
+                <button className="btn btn-success" onClick={handleNavigate}>Add New Employee</button>
+              </div>
+            <table className="table table-striped table-bordered mt-2">
               <thead>
                 <tr>
                   <th>Name</th>

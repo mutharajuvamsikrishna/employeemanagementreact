@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "./Login";
-import Register from "./Register";
 import Otp from "./Otp";
 import ForgetpasswordOtp from "./ForgetPasswordOtp";
 import ForgetPasswordSet from "./ForgetPasswordSet";
@@ -10,7 +9,6 @@ const Home= () => {
     <div>
      <Logo/>
       <Routes>
-        <Route path="/reg" element={<Register />} />
         <Route path="/otp" element={<Otp />} />
         <Route path="/" element={<Login />} />
         <Route path="/forgetpassword" element={<ForgetpasswordOtp />} />

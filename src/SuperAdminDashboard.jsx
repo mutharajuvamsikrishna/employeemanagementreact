@@ -11,7 +11,7 @@ import {
 import { Button } from "react-bootstrap";
 import OnieLogoImage from "./Images/oniesoft-final1.png";
 import "./Logo.css";
-const AdminDashBoard = () => {
+const SuperAdminDashBoard = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const data = location.state.data;
@@ -48,7 +48,7 @@ const AdminDashBoard = () => {
         backgroundColor: "transparent",
         cursor: "pointer",
         padding: 0,
-      }}onClick={()=>navigate("/admindashboardlayout",{state:{data:data}})}>
+      }}onClick={()=>navigate("/superadmindashboardlayout",{state:{data:data}})}>
               <img
                 src={OnieLogoImage}
                 alt="ONiE SOFT"
@@ -66,13 +66,13 @@ const AdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/admindashboardlayout/registers", {
+                  navigate("/superadmindashboardlayout/registers", {
                     state: { data: data },
                   })
                 }
               >
-                <CDBSidebarMenuItem icon="save">
-                  <span style={buttonTextStyle}>Register Details</span>
+                <CDBSidebarMenuItem icon="plus">
+                  <span style={buttonTextStyle}>Add Employee</span>
                 </CDBSidebarMenuItem>
               </Button>
               <Button
@@ -80,7 +80,7 @@ const AdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/admindashboardlayout/viewallpersonaldetails", {
+                  navigate("/superadmindashboardlayout/viewallpersonaldetails", {
                     state: { data: data },
                   })
                 }
@@ -95,7 +95,7 @@ const AdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/admindashboardlayout/viewallemployeedetails", {
+                  navigate("/superadmindashboardlayout/viewallemployeedetails", {
                     state: { data: data },
                   })
                 }
@@ -110,7 +110,7 @@ const AdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/admindashboardlayout/viewallfamilydetails", {
+                  navigate("/superadmindashboardlayout/viewallfamilydetails", {
                     state: { data: data },
                   })
                 }
@@ -125,7 +125,7 @@ const AdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/admindashboardlayout/viewallbankdetails", {
+                  navigate("/superadmindashboardlayout/viewallbankdetails", {
                     state: { data: data },
                   })
                 }
@@ -140,7 +140,7 @@ const AdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/admindashboardlayout/viewallemergencydetails", {
+                  navigate("/superadmindashboardlayout/viewallemergencydetails", {
                     state: { data: data },
                   })
                 }
@@ -154,21 +154,7 @@ const AdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/admindashboardlayout/adminchecklist", {
-                    state: { data: data },
-                  })
-                }
-              >
-                <CDBSidebarMenuItem icon="check">
-                  <span style={buttonTextStyle}>New Bee</span>
-                </CDBSidebarMenuItem>
-              </Button>
-              <Button
-                variant="outline-info"
-                size="sm"
-                style={buttonStyle}
-                onClick={() =>
-                  navigate("/admindashboardlayout/adminticketreslove", {
+                  navigate("/superadmindashboardlayout/adminticketreslove", {
                     state: { data: data },
                   })
                 }
@@ -182,7 +168,7 @@ const AdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/admindashboardlayout/profile", {
+                  navigate("/superadmindashboardlayout/profile", {
                     state: { data: data },
                   })
                 }
@@ -199,4 +185,4 @@ const AdminDashBoard = () => {
   );
 };
 
-export default AdminDashBoard;
+export default SuperAdminDashBoard;

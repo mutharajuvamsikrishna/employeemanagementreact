@@ -29,8 +29,9 @@ import RaiseTicket from "./RaiseTicket";
 import ProfileImage from "./ProfileImage";
 import AdminTicketSolve from "./AdminTicketSolve";
 import { getProfiles } from "./Services/Api";
-import AdminNewBeeCheckList from "./AdminNewBeeCheckList";
-const AdminDashboardLayout = () => {
+import SuperAdminDashBoard from "./SuperAdminDashboard";
+import AddEmployee from "./AddEmployee";
+const SuperAdminDashboardLayOut = () => {
   const [employee, setEmployee] = useState(null);
   const [load, setLoad] = useState(true);
   const location = useLocation();
@@ -66,7 +67,7 @@ const AdminDashboardLayout = () => {
   }
   return (
     <div className="d-flex">
-      <AdminDashBoard employee={employee} />
+      <SuperAdminDashBoard employee={employee} />
       <ProfileImage employee={employee} />
       <Routes>
         <Route path="/personaldetails" element={<PersonalDetails />} />
@@ -109,10 +110,10 @@ const AdminDashboardLayout = () => {
         <Route path="/raiseticket" element={<RaiseTicket />} />
         <Route path="/viewticket" element={<ViewTicket />} />
         <Route path="/adminticketreslove" element={<AdminTicketSolve employee={employee} />} />
-        <Route path="/adminchecklist" element={<AdminNewBeeCheckList employee={employee} />} />
+        <Route path="/addnewemployee" element={<AddEmployee employee={employee} />} />
       </Routes>
     </div>
   );
 };
 
-export default AdminDashboardLayout;
+export default SuperAdminDashboardLayOut;

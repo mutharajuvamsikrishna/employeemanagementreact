@@ -44,7 +44,7 @@ const Login = () => {
         if (response.status === 200) {
           localStorage.setItem("jwtToken", response.data.jwt);
           if (response.data.role === "ROLE_USER") {
-            navigate("/dashboard", { state: { data: values } });
+            navigate("/dashboardlayout", { state: { data: values } });
           } else if (response.data.role === "ROLE_ADMIN") {
             setFormData(values);
             handleShow();
@@ -179,16 +179,16 @@ const Login = () => {
                 >
                   Sign In
                 </button>
-                <div className="pt-3">
+                <div className="pt-3" style={{marginTop:"10px"}}>
                   <Link to="/forgetpassword">Forgotten account?</Link>
-                  <div style={{ paddingTop: "20px" }}>
+                  {/* <div style={{ paddingTop: "20px" }}>
                     <button
                       className="btn btn-success"
                       onClick={handleSubmit1}
                     >
                       SignUp
                     </button>
-                  </div>
+                  </div> */}
                   <br />
                 </div>
               </form>
