@@ -6,18 +6,18 @@ import "./ViewEmergencyDetails.css";
 const ViewBankDetails = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   const data = {
-    email: email,
+    empId: empId,
   };
   useEffect(() => {
-    fetchEmergencyData(email);
-  }, [email]);
+    fetchEmergencyData(empId);
+  }, [empId]);
 
-  const fetchEmergencyData = (email) => {
-    getEmergencyDetails(email)
+  const fetchEmergencyData = (empId) => {
+    getEmergencyDetails(empId)
       .then((response) => {
         setLoading(false);
         // Accessing the first element of the array

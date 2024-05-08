@@ -6,20 +6,20 @@ import "./ViewBankDetails.css";
 const ViewBankDetails = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const [fileContent, setFileContent] = useState([]);
   // State object to store form field values
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   const data = {
-    email: email,
+    empId: empId,
   };
   useEffect(() => {
-    fetchBankData(email);
-  }, [email]);
+    fetchBankData(empId);
+  }, [empId]);
 
-  const fetchBankData = (email) => {
-    getBankDetails(email)
+  const fetchBankData = (empId) => {
+    getBankDetails(empId)
       .then((response) => {
         setLoading(false);
         // Accessing the first element of the array

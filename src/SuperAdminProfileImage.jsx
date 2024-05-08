@@ -35,7 +35,7 @@ const MenuItem = styled.div`
   }
 `;
 
-const ProfileImage = ({ employee }) => {
+const SuperadminProfileImage = ({ employee }) => {
   const navigate = useNavigate();
   const [avatarUrl, setAvatarUrl] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -68,7 +68,9 @@ const ProfileImage = ({ employee }) => {
     const data = {
       empId: empId,
     };
-    navigate("/dashboardlayout/avatar", { state: { data: data } });
+    navigate("/superadmindashboardlayout/superadminavatar", {
+      state: { data: data },
+    });
   };
 
   const handleViewProfile = () => {
@@ -77,22 +79,20 @@ const ProfileImage = ({ employee }) => {
     const data = {
       empId: empId,
     };
-    navigate("/dashboardlayout/profile", { state: { data: data } });
+    navigate("/superadmindashboardlayout/superadminprofile", {
+      state: { data: data },
+    });
   };
   const handleLogOut = () => {
     localStorage.clear();
     navigate("/");
   };
-  const handleSwitch=()=>{
+  const handleSwitch = () => {
     const data = {
       empId: empId,
     };
-    if(employee.roles==="ROLE_SUPERADMIN"){
-    navigate("/superadmindashboardlayout/piechart",{state:{data:data}})
-    }else{
-      navigate("/admindashboardlayout/piechart",{state:{data:data}})
-    }
-  }
+    navigate("/dashboardlayout/piechart", { state: { data: data } });
+  };
   return (
     <>
       <OvalImageContainer onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -100,9 +100,7 @@ const ProfileImage = ({ employee }) => {
         <p className="text-success">{employee.name}</p>
       </OvalImageContainer>
       <MenuModal isOpen={isMenuOpen}>
-        {employee.roles!=="ROLE_USER"&&(
-      <MenuItem onClick={handleSwitch}>Switch to {employee.roles}</MenuItem>
-    )}
+        <MenuItem onClick={handleSwitch}>Switch to User</MenuItem>
         <MenuItem onClick={handleEditProfile}>Edit Profile</MenuItem>
         <MenuItem onClick={handleViewProfile}>View Profile</MenuItem>
         <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
@@ -111,4 +109,4 @@ const ProfileImage = ({ employee }) => {
   );
 };
 
-export default ProfileImage;
+export default SuperadminProfileImage;

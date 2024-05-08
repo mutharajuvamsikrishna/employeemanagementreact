@@ -8,18 +8,18 @@ import "./RaiseDispute.css";
 const ViewTicket = ({employee}) => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const data={
-    email:email,
+    empId:empId,
   }
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   useEffect(() => {
-    fetchRaiseDisputeData(email);
-  }, [email]);
+    fetchRaiseDisputeData(empId);
+  }, [empId]);
 
-  const fetchRaiseDisputeData = (email) => {
-    getRaiseDisputeDetails(email)
+  const fetchRaiseDisputeData = (empId) => {
+    getRaiseDisputeDetails(empId)
       .then((response) => {
         setLoading(false);
         setFormData(response.data);

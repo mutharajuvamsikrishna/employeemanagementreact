@@ -29,19 +29,21 @@ import Cropper from "./Cropper";
 import RaiseTicket from "./RaiseTicket";
 import ProfileImage from "./ProfileImage";
 import EmployeeChecklist from "./EmployeeChecklist";
+import UserPieChart from "./UserPieChart";
+import UserViewAdminCheckList from "./UserViewAdminCheckList";
 const DashboardLayout = () => {
   const [employee, setEmployee] = useState(null);
   const [load,setLoad]=useState(true);
   const location = useLocation();
   const data = location.state?.data;
-  const email=location.state?.data.email;
+  const empId=location.state?.data.empId;
   useEffect(() => {
-    fetchEmployee(email);
-  }, [email]);
-  const fetchEmployee = (email) => {
+    fetchEmployee(empId);
+  }, [empId]);
+  const fetchEmployee = (empId) => {
     // axios
-    //  .get(`http://localhost:1279/reg?email=${email}`)
-    getProfiles(email)
+    //  .get(`http://localhost:1279/reg?empId=${empId}`)
+    getProfiles(empId)
       .then((response) => {
         setEmployee(response.data);
         setLoad(false);
@@ -68,6 +70,7 @@ const DashboardLayout = () => {
       <DashBoard data={data} />
       <ProfileImage employee={employee} />
           <Routes>
+          <Route path="/piechart" element={<UserPieChart employee={employee} />} />
             <Route path="/personaldetails" element={<PersonalDetails />} />
             <Route path="/editpersonaldetails" element={<UserPersonalEdit />} />
             <Route path="/employeedetails" element={<EmployeeDetails />} />
@@ -117,6 +120,8 @@ const DashboardLayout = () => {
             <Route path="/raiseticket" element={<RaiseTicket employee={employee} />} />
             <Route path="/viewticket" element={<ViewTicket />} />
             <Route path="/newbee" element={<EmployeeChecklist />} />
+            <Route path="/checdetaisupdatedbyadmin" element={<UserViewAdminCheckList />} />
+            
           </Routes>
     </div>
   );

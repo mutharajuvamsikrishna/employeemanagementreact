@@ -9,23 +9,23 @@ import { Country, State } from "country-state-city";
 const EditEmployeeDetails = () => {
   const navigate = useNavigate(); // Import useNavigate
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const [formData, setFormData] = useState([]);
   const [countryList, setCountryList] = useState([]);
   const [stateList, setStateList] = useState([]);
   const [city, setCity] = useState("");
   useEffect(() => {
-    fetchEmployeeData(email);
+    fetchEmployeeData(empId);
     fetchCountries();
-  }, [email]);
+  }, [empId]);
 
-  const fetchEmployeeData = (email) => {
-    getEmployeeDetails(email)
+  const fetchEmployeeData = (empId) => {
+    getEmployeeDetails(empId)
       .then((response) => {
         setCity(response.data[0].cities);
         formik.setValues({
           laptopId: response.data[0].laptopId || "",
-          email: response.data[0].email || "",
+          empId: response.data[0].empId || "",
           totalExperience: response.data[0].totalExperience || "",
           currentCtc: response.data[0].currentCtc || "",
           role: response.data[0].role || "",
@@ -85,7 +85,7 @@ const EditEmployeeDetails = () => {
   const formik = useFormik({
     initialValues: {
       laptopId: "",
-      email: "",
+      empId: "",
       totalExperience: "",
       currentCtc: "",
       role: "",

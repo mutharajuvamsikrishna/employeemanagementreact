@@ -48,7 +48,7 @@ const AdminDashBoard = () => {
         backgroundColor: "transparent",
         cursor: "pointer",
         padding: 0,
-      }}onClick={()=>navigate("/admindashboardlayout",{state:{data:data}})}>
+      }}onClick={()=>navigate("/admindashboardlayout/piechart",{state:{data:data}})}>
               <img
                 src={OnieLogoImage}
                 alt="ONiE SOFT"
@@ -61,20 +61,6 @@ const AdminDashBoard = () => {
             style={{ display: "flex", marginLeft: "5px" }}
           >
             <CDBSidebarMenu>
-            <Button
-                variant="outline-info"
-                size="sm"
-                style={buttonStyle}
-                onClick={() =>
-                  navigate("/admindashboardlayout/registers", {
-                    state: { data: data },
-                  })
-                }
-              >
-                <CDBSidebarMenuItem icon="save">
-                  <span style={buttonTextStyle}>Register Details</span>
-                </CDBSidebarMenuItem>
-              </Button>
               <Button
                 variant="outline-info"
                 size="sm"
@@ -154,7 +140,7 @@ const AdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/admindashboardlayout/adminchecklist", {
+                  navigate("/admindashboardlayout/adminchecklistverify", {
                     state: { data: data },
                   })
                 }
@@ -182,7 +168,7 @@ const AdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/admindashboardlayout/profile", {
+                  navigate("/admindashboardlayout/adminprofile", {
                     state: { data: data },
                   })
                 }

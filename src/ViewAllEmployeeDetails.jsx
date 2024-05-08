@@ -11,7 +11,10 @@ import { MdDelete } from "react-icons/md";
 const ViewAllEmployeeDetails = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
+  const empData={
+empId:empId
+  }
   const navigate = useNavigate();
   const [formData, setFormData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -30,14 +33,14 @@ const ViewAllEmployeeDetails = () => {
         setLoading(false);
       });
   };
-  const confirmDelete = (email) => {
+  const confirmDelete = (empId) => {
     const confirmed = window.confirm(
       "Are you sure you want to save the changes?"
     );
     if (!confirmed) {
       return;
     }
-    deleteEmployeeDetails(email)
+    deleteEmployeeDetails(empId)
       .then((response) => {
         if (response.status === 200) {
           alert("Deleted SucessFully");
@@ -57,9 +60,10 @@ const ViewAllEmployeeDetails = () => {
         console.error(error);
       });
   };
-  const handleNavigate = (email) => {
+  const handleNavigate = (empId) => {
     const data = {
-      email: email,
+      empId1: empId,
+      empId:empData.empId,
     };
     navigate("/admindashboardlayout/viewemployeedetails", { state: { data: data } });
   };
@@ -136,11 +140,11 @@ const ViewAllEmployeeDetails = () => {
                     <td>{emp.totalExperience}</td>
                     <td>{emp.designation}</td>
                     <td>{emp.role}</td>
-                    <td>{emp.email}</td>
+                    <td>{emp.empId}</td>
 
                     <td>
                       {" "}
-                      <button onClick={() => handleNavigate(emp.email)}>
+                      <button onClick={() => handleNavigate(emp.empId)}>
                         <MdOutlineContentPasteSearch
                           style={{
                             height: "20px",
@@ -154,7 +158,7 @@ const ViewAllEmployeeDetails = () => {
                       {" "}
                       <button
                         className=""
-                        onClick={() => confirmDelete(emp.email)}
+                        onClick={() => confirmDelete(emp.empId)}
                       >
                         <MdDelete
                           style={{

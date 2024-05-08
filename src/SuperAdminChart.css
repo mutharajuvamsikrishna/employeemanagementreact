@@ -1,0 +1,13 @@
+.super-pie{
+    min-height: 99vh;
+    width: 100%;
+}
+.combined-pie{
+    display: flex;
+}
+.legend{
+    display: flex;
+}
+.legend-label{
+    padding-left: 10px;
+}

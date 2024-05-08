@@ -7,17 +7,17 @@ import "./FamilyDetails.css";
 const FamilyDetailsEdit = () => {
   const navigate = useNavigate(); // Import useNavigate
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
 
   useEffect(() => {
-    fetchFamilyData(email);
-  }, [email]);
+    fetchFamilyData(empId);
+  }, [empId]);
 
-  const fetchFamilyData = (email) => {
-    getFamilyDetails(email)
+  const fetchFamilyData = (empId) => {
+    getFamilyDetails(empId)
       .then((response) => {
         formik.setValues({
-          email: response.data[0].email || "",
+          empId: response.data[0].empId || "",
           fatherName: response.data[0].fatherName || "",
           fatherAadhar: response.data[0].fatherAadhar || "",
           fatherPanCard: response.data[0].fatherPanCard || "",
@@ -48,7 +48,7 @@ const FamilyDetailsEdit = () => {
   };
   const formik = useFormik({
     initialValues: {
-      email: "",
+      empId: "",
       fatherName: "",
       fatherAadhar: "",
       fatherPanCard: "",
@@ -819,7 +819,7 @@ const FamilyDetailsEdit = () => {
             </div>
             <div className="text-center">
               <button type="submit" className="btn btn-primary">
-                Submit
+                Edit
               </button>
             </div>
           </form>

@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
+import AdminNewBeeVerify from "./AdminNewBeeVerify";
 import PersonalDetails from "./PersonalDetails";
 import UserPersonalEdit from "./UserPersonalEdit";
 import EmployeeDetails from "./EmployeeDetails";
@@ -26,23 +26,24 @@ import ViewAdminPersonal from "./ViewAdminPersonal";
 import Profile from "./UserProfile";
 import Cropper from "./Cropper";
 import RaiseTicket from "./RaiseTicket";
-import ProfileImage from "./ProfileImage";
 import AdminTicketSolve from "./AdminTicketSolve";
 import { getProfiles } from "./Services/Api";
 import AdminNewBeeCheckList from "./AdminNewBeeCheckList";
+import AdminProfileImage from "./AdminProfileImage";
+import AdminPieChart from "./AdminPieChart";
+import AdminCheckListVerf from "./AdminCheckListVerf";
 const AdminDashboardLayout = () => {
   const [employee, setEmployee] = useState(null);
   const [load, setLoad] = useState(true);
   const location = useLocation();
-  const data = location.state?.data;
-  const email = location.state?.data.email;
+  const empId = location.state?.data.empId;
   useEffect(() => {
-    fetchEmployee(email);
-  }, [email]);
-  const fetchEmployee = (email) => {
+    fetchEmployee(empId);
+  }, [empId]);
+  const fetchEmployee = (empId) => {
     // axios
-    //  .get(`http://localhost:1279/reg?email=${email}`)
-    getProfiles(email)
+    //  .get(`http://localhost:1279/reg?empId=${empId}`)
+    getProfiles(empId)
       .then((response) => {
         setEmployee(response.data);
         setLoad(false);
@@ -67,8 +68,9 @@ const AdminDashboardLayout = () => {
   return (
     <div className="d-flex">
       <AdminDashBoard employee={employee} />
-      <ProfileImage employee={employee} />
+      <AdminProfileImage employee={employee} />
       <Routes>
+      <Route path="/piechart" element={<AdminPieChart employee={employee}/>} />
         <Route path="/personaldetails" element={<PersonalDetails />} />
         <Route path="/editpersonaldetails" element={<UserPersonalEdit />} />
         <Route path="/employeedetails" element={<EmployeeDetails />} />
@@ -104,12 +106,14 @@ const AdminDashboardLayout = () => {
           element={<ViewAllPersonalDetails />}
         />
         <Route path="/viewadminpersonal" element={<ViewAdminPersonal />} />
-        <Route path="/profile" element={<Profile employee={employee} />} />
-        <Route path="/avatar" element={<Cropper />} />
+        <Route path="/adminprofile" element={<Profile employee={employee} />} />
+        <Route path="/adminavatar" element={<Cropper />} />
         <Route path="/raiseticket" element={<RaiseTicket />} />
         <Route path="/viewticket" element={<ViewTicket />} />
         <Route path="/adminticketreslove" element={<AdminTicketSolve employee={employee} />} />
+        <Route path="/checkuserlist" element={< AdminCheckListVerf employee={employee} />} />
         <Route path="/adminchecklist" element={<AdminNewBeeCheckList employee={employee} />} />
+        <Route path="/adminchecklistverify" element={< AdminNewBeeVerify employee={employee} />} />
       </Routes>
     </div>
   );

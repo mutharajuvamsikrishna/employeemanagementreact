@@ -2,20 +2,22 @@ import React, { useState,useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import "./EmployeeChecklist.css";
-import { postUserCheckList, getUserCheckList } from "./Services/Api";
+import { postUserCheckList, getUserCheckList,getAdminCheckList } from "./Services/Api";
 import { useLocation, useNavigate } from "react-router-dom";
 import EmployeeChecklistEdit from "./EmployeeChecklistEdit";
 const EmployeeChecklist = () => {
   const [formDta,setFormData]=useState(null);
+  const [adminFormDta,setAdminFormData]=useState(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const email = location.state?.data.email;
+  const empId = location.state?.data.empId;
   useEffect(() => {
-    fetchUserCheckListData(email);
-  }, [email]);
+    fetchUserCheckListData(empId);
+    fetchAdminCheckListData(empId);
+  }, [empId]);
 
-  const fetchUserCheckListData = (email) => {
-    getUserCheckList(email)
+  const fetchUserCheckListData = (empId) => {
+    getUserCheckList(empId)
       .then((response) => {
         setFormData(response.data[0]);
       })
@@ -23,11 +25,22 @@ const EmployeeChecklist = () => {
         console.log(error);
       });
   };
-  if(formDta!=null){
-    return <div><EmployeeChecklistEdit formDta={formDta}/></div>
+  const fetchAdminCheckListData = (empId) => {
+    getAdminCheckList(empId)
+      .then((response) => {
+        setAdminFormData(response.data[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  if(formDta){
+   
+    return <div><EmployeeChecklistEdit formDta={formDta}
+    adminFormDta={adminFormDta}/></div>
   }
   const initialValues = {
-    email: email,
+    empId: empId,
     candidateConfirmation: false,
     hrAssignment: false,
     submitRelievingLetter: false,
@@ -81,8 +94,8 @@ const EmployeeChecklist = () => {
        
           <Form>
             <div className="row">
-              <div className="col-md-12 mb-4">
-                <h5 className="text-center mt-2 mb-2">Joining Day</h5>
+              <div className="col-md-12 mb-5">
+                <h5 className="text-center mt-2 mb-5">Joining Day</h5>
                 <div style={{ marginTop: "25px" }} className="row">
                   <div className="col-md-3">
                     <div className="checkbox-group">
@@ -191,7 +204,7 @@ const EmployeeChecklist = () => {
                       </label>
                     </div>
                   </div>
-                  <h5 className="text-center mt-2 mb-2">First Work Day</h5>
+                  <h5 className="text-center mt-4 mb-5">First Work Day</h5>
                   <div className="col-md-3">
                     <div className="checkbox-group">
                       <label>

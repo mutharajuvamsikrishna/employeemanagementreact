@@ -6,17 +6,17 @@ import * as Yup from "yup";
 import "./BankDetailsEdit.css";
 const BankDetailsEdit = () => {
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   useEffect(() => {
-    fetchBankData(email);
-  }, [email]);
+    fetchBankData(empId);
+  }, [empId]);
 
-  const fetchBankData = (email) => {
-    getBankDetails(email)
+  const fetchBankData = (empId) => {
+    getBankDetails(empId)
       .then((response) => {
         formik.setValues({
           regno: response.data.regno || "",
-          email: response.data.email || "",
+          empId: response.data.empId || "",
           bankName: response.data.bankName || "",
           branch: response.data.branch || "",
           ifcCode: response.data.ifcCode || "",
@@ -33,7 +33,7 @@ const BankDetailsEdit = () => {
   const formik = useFormik({
     initialValues: {
       regno: "",
-      email: "",
+      empId: "",
       bankName: "",
       branch: "",
       ifcCode: "",

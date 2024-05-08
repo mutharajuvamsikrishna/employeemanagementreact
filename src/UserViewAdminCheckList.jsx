@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import "./AdminNewBeeCheckListEdit.css";
 import { updateAdminCheckList } from "./Services/Api";
 import { useLocation, useNavigate } from "react-router-dom";
-const AdminNewBeeCheckListEdit = ({formDta}) => {
+const UserViewAdminCheckList = ({formDta}) => {
   const navigate = useNavigate();
   const initialValues = {
     id:formDta.id,
@@ -67,7 +67,7 @@ const AdminNewBeeCheckListEdit = ({formDta}) => {
 
           <Form>
             <div className="row">
-              <div className="col-md-12 mb-4">
+              <div className="col-md-12 mb-5">
                 <h5 className="text-center mt-2 mb-5">Joining Day</h5>
                 <div style={{ marginTop: "25px" }} className="row">
                   <div className="col-md-3">
@@ -285,16 +285,10 @@ const AdminNewBeeCheckListEdit = ({formDta}) => {
                 </div>
               </div>
             </div>
-            <div className="text-center">
-              <button type="submit" className="btn btn-primary">
-                Edit
-              </button>
-            </div>
           </Form>
-        
       </Formik>
     </div>
   );
 };
 
-export default AdminNewBeeCheckListEdit;
+export default UserViewAdminCheckList;

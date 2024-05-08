@@ -8,20 +8,20 @@ import { Country, State, City } from "country-state-city";
 const UserPersonalEdit = () => {
   const navigate = useNavigate(); // Import useNavigate
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const [stateList, setStateList] = useState([]);
   const [cityList, setCityList] = useState([]);
   useEffect(() => {
-    fetchPersonalData(email);
+    fetchPersonalData(empId);
     fetchStates();
-  }, [email]);
+  }, [empId]);
 
-  const fetchPersonalData = (email) => {
-    getPersonalDetails(email)
+  const fetchPersonalData = (empId) => {
+    getPersonalDetails(empId)
       .then((response) => {
         formik.setValues({
           regno: response.data.regno || "",
-          email: response.data.email || "",
+          empId: response.data.empId || "",
           aadhar: response.data.adhar || "",
           pan: response.data.pan || "",
           val1: response.data.val1 || "",
@@ -64,7 +64,7 @@ const UserPersonalEdit = () => {
   };
   const formik = useFormik({
     initialValues: {
-      email: "",
+      empId: "",
       aadhar: "",
       pan: "",
       val1: "",

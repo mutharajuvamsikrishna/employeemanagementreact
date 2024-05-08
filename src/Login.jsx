@@ -19,14 +19,12 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      empId: "",
       password: "",
       showPassword: false,
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
+      empId: Yup.string().required("ID is required"),
       password: Yup.string()
         .min(6, "Password should be at least 6 characters")
         .required("Password is required"),
@@ -39,12 +37,16 @@ const Login = () => {
         );
         return false;
       }
+       if(values.password==="Onie@12"){
+          navigate("/forgetpassword")
+          return;
+        }
       try {
         const response = await postUserLogin(values);
         if (response.status === 200) {
           localStorage.setItem("jwtToken", response.data.jwt);
           if (response.data.role === "ROLE_USER") {
-            navigate("/dashboardlayout", { state: { data: values } });
+            navigate("/dashboardlayout/piechart", { state: { data: values } });
           } else if (response.data.role === "ROLE_ADMIN") {
             setFormData(values);
             handleShow();
@@ -66,18 +68,16 @@ const Login = () => {
     formik.setFieldValue("showPassword", !formik.values.showPassword);
   };
 
-  const handleSubmit1 = () => {
-    navigate("/reg");
-  };
+  
 
   const handleSelectRole = (role) => {
     const values = {
-      email: formData.email,
+      empId: formData.empId,
     };
     if (role === "user") {
-      navigate("/dashboardlayout", { state: { data: values } });
-    } else {
-      navigate(`/${role}dashboardlayout`, { state: { data: values } });
+      navigate("/dashboardlayout/piechart", { state: { data: values } });
+    } else{
+      navigate(`/${role}dashboardlayout/piechart`, { state: { data: values } });
     }
   };
 
@@ -100,34 +100,32 @@ const Login = () => {
             <center>
               <form className="form-login" onSubmit={formik.handleSubmit}>
                 <div className="text-danger">
-                  {res && (
-                    <h5 className="text-center">Invalid Credentials</h5>
-                  )}
+                  {res && <h5 className="text-center">Invalid Credentials</h5>}
                 </div>
                 <h3 className="mb-3">Login to ONiE Soft Employee</h3>
-                <div id="register" className="col-md-7 mb-4">
-                  <label>Email</label>
+                <div  className="col-md-7 mb-4">
+                  <label>Employee ID</label>
                   <input
                     type="text"
-                    name="email"
-                    placeholder="Enter Email"
+                    name="empId"
+                    placeholder="Enter Employee ID"
                     className={`form-control ${
-                      formik.touched.email && formik.errors.email
+                      formik.touched.empId && formik.errors.empId
                         ? "is-invalid"
                         : ""
                     }`}
-                    value={formik.values.email}
+                    value={formik.values.empId}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     required
                   />
-                  {formik.touched.email && formik.errors.email && (
+                  {formik.touched.empId && formik.errors.empId && (
                     <div className="invalid-feedback">
-                      {formik.errors.email}
+                      {formik.errors.empId}
                     </div>
                   )}
                 </div>
-                <div id="register" className="col-md-7 mb-4">
+                <div className="col-md-7 mb-4">
                   <label>Password</label>
                   <div className="input-group">
                     <input
@@ -153,9 +151,7 @@ const Login = () => {
                       {formik.values.showPassword ? (
                         <FaEye style={{ height: "20px", width: "20px" }} />
                       ) : (
-                        <FaEyeSlash
-                          style={{ height: "20px", width: "20px" }}
-                        />
+                        <FaEyeSlash style={{ height: "20px", width: "20px" }} />
                       )}
                     </button>
                   </div>
@@ -179,8 +175,8 @@ const Login = () => {
                 >
                   Sign In
                 </button>
-                <div className="pt-3" style={{marginTop:"10px"}}>
-                  <Link to="/forgetpassword">Forgotten account?</Link>
+                <div className="pt-3" style={{ marginTop: "10px" }}>
+                  <Link to="/forgetpassword">Forgotten password/setPassword?</Link>
                   {/* <div style={{ paddingTop: "20px" }}>
                     <button
                       className="btn btn-success"

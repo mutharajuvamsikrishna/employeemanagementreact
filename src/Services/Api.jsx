@@ -18,9 +18,9 @@ const getApiHeaders = () => {
   };
 };
 
-export const getProfiles = (email) => {
+export const getProfiles = (empId) => {
   const headers = getApiHeaders(); // Dynamically get headers when making the request
-  return Api.get(`/register/v1/getreg?email=${email}`, headers);
+  return Api.get(`/register/v1/getreg?empId=${empId}`, headers);
 };
 
 export const UserRegister = (data) => {
@@ -49,9 +49,9 @@ export const postPersonalDetails = (data1) => {
   const headers = getApiHeaders();
   return Api.post("/personaldetails/v1/personaldetailssave", data1, headers);
 };
-export const getPersonalDetails = (email) => {
+export const getPersonalDetails = (empId) => {
   const headers = getApiHeaders();
-  return Api.get(`/personaldetails/v1/useruniquereq?email=${email}`, headers);
+  return Api.get(`/personaldetails/v1/useruniquereq?empId=${empId}`, headers);
 };
 export const putPersonalDetails = (data1) => {
   const headers = getApiHeaders();
@@ -61,10 +61,10 @@ export const postEmployeeDetails = (data) => {
   const headers = getApiHeaders();
   return Api.post("/employeedetails/v1/employeedetails-save", data, headers);
 };
-export const getEmployeeDetails = (email) => {
+export const getEmployeeDetails = (empId) => {
   const headers = getApiHeaders();
   return Api.get(
-    `/employeedetails/v1/getemployeedetails?email=${email}`,
+    `/employeedetails/v1/getemployeedetails?empId=${empId}`,
     headers
   );
 };
@@ -76,9 +76,9 @@ export const postFamilyDetails = (data) => {
   const headers = getApiHeaders();
   return Api.post("/familydetails/v1/familydetails-save", data, headers);
 };
-export const getFamilyDetails = (email) => {
+export const getFamilyDetails = (empId) => {
   const headers = getApiHeaders();
-  return Api.get(`/familydetails/v1/getfamilydetails?email=${email}`, headers);
+  return Api.get(`/familydetails/v1/getfamilydetails?empId=${empId}`, headers);
 };
 export const putFamilyDetails = (data) => {
   const headers = getApiHeaders();
@@ -88,9 +88,9 @@ export const postBankDetails = (data) => {
   const headers = getApiHeaders();
   return Api.post("/bankdetails/v1/bankdetails-save", data, headers);
 };
-export const getBankDetails = (email) => {
+export const getBankDetails = (empId) => {
   const headers = getApiHeaders();
-  return Api.get(`/bankdetails/v1/getbankdetails?email=${email}`, headers);
+  return Api.get(`/bankdetails/v1/getbankdetails?empId=${empId}`, headers);
 };
 export const putBankDetails = (data) => {
   const headers = getApiHeaders();
@@ -100,10 +100,10 @@ export const postEmergencyDetails = (data) => {
   const headers = getApiHeaders();
   return Api.post("/emergencydetails/v1/emergencydetails-save", data, headers);
 };
-export const getEmergencyDetails = (email) => {
+export const getEmergencyDetails = (empId) => {
   const headers = getApiHeaders();
   return Api.get(
-    `/emergencydetails/v1/getemergencydetails?email=${email}`,
+    `/emergencydetails/v1/getemergencydetails?empId=${empId}`,
     headers
   );
 };
@@ -119,10 +119,10 @@ export const postRaiseDisputeDetails = (data) => {
     headers
   );
 };
-export const getRaiseDisputeDetails = (email) => {
+export const getRaiseDisputeDetails = (empId) => {
   const headers = getApiHeaders();
   return Api.get(
-    `/raisedisputedetails/v1/getraisedisputedetails?email=${email}`,
+    `/raisedisputedetails/v1/getraisedisputedetails?empId=${empId}`,
     headers
   );
 };
@@ -191,37 +191,41 @@ export const searchPersonalDetails = (searchQuery) => {
     headers
   );
 };
-export const deleteAdminRegisterDetails = (email) => {
+export const deleteAdminRegisterDetails = (empId) => {
   const headers = getApiHeaders();
-  return Api.delete(`/admin/v1/deleteadminregister?email=${email}`, headers);
+  return Api.delete(`/admin/v1/deleteadminregister?empId=${empId}`, headers);
 };
-export const deleteBankDetails = (email) => {
+export const deleteBankDetails = (empId) => {
   const headers = getApiHeaders();
-  return Api.delete(`/admin/v1/deletebankdetails?email=${email}`, headers);
+  return Api.delete(`/admin/v1/deletebankdetails?empId=${empId}`, headers);
 };
-export const deleteEmergencyDetails = (email) => {
+export const deleteEmergencyDetails = (empId) => {
   const headers = getApiHeaders();
-  return Api.delete(`/admin/v1/deleteemergemcydetails?email=${email}`, headers);
+  return Api.delete(`/admin/v1/deleteemergemcydetails?empId=${empId}`, headers);
 };
-export const deleteEmployeeDetails = (email) => {
+export const deleteEmployeeDetails = (empId) => {
   const headers = getApiHeaders();
-  return Api.delete(`/admin/v1/deleteemployeedetails?email=${email}`, headers);
+  return Api.delete(`/admin/v1/deleteemployeedetails?empId=${empId}`, headers);
 };
-export const deleteFamilyDetails = (email) => {
+export const deleteFamilyDetails = (empId) => {
   const headers = getApiHeaders();
-  return Api.delete(`/admin/v1/deletefamilydetails?email=${email}`, headers);
+  return Api.delete(`/admin/v1/deletefamilydetails?empId=${empId}`, headers);
 };
-export const deletePersonalDetails = (email) => {
+export const deletePersonalDetails = (empId) => {
   const headers = getApiHeaders();
-  return Api.delete(`/admin/v1/deletepersonaldetails?email=${email}`, headers);
+  return Api.delete(`/admin/v1/deletepersonaldetails?empId=${empId}`, headers);
 };
 export const postAvatarDetails = (formData) => {
   const headers = getApiHeaders();
   return Api.post("/profile/v1/avatar", formData, headers);
 };
-export const getAvatarDetails = (email) => {
+export const getAvatarDetails = (empId) => {
   const headers = getApiHeaders();
-  return Api.get(`/profile/v1/getavatardetails?email=${email}`, headers);
+  return Api.get(`/profile/v1/getavatardetails?empId=${empId}`, headers);
+};
+export const deleteAvatarDetails = (empId) => {
+  const headers = getApiHeaders();
+  return Api.delete(`/profile/v1/deletavatar?empId=${empId}`, headers);
 };
 export const searchTicketDetails = (searchQuery) => {
   const headers = getApiHeaders();
@@ -238,17 +242,21 @@ export const postUserCheckList = (data) => {
   const headers = getApiHeaders();
   return Api.post("/checklist/v1/userchecklist-save",data,headers);
 };
-export const getUserCheckList = (email) => {
+export const getUserCheckList = (empId) => {
   const headers = getApiHeaders();
-  return Api.get(`/checklist/v1/userchecklist-get?email=${email}`,headers);
+  return Api.get(`/checklist/v1/userchecklist-get?empId=${empId}`,headers);
 };
 export const postAdminCheckList = (data) => {
   const headers = getApiHeaders();
   return Api.post("/checklist/v1/adminchecklist-save", data,headers);
 };
-export const getAdminCheckList = (email) => {
+export const updateAdminCheckList = (data) => {
   const headers = getApiHeaders();
-  return Api.get(`/checklist/v1/adminchecklist-get?email=${email}`, headers);
+  return Api.put("/checklist/v1/adminchecklist-update", data,headers);
+};
+export const getAdminCheckList = (empId) => {
+  const headers = getApiHeaders();
+  return Api.get(`/checklist/v1/adminchecklist-get?empId=${empId}`, headers);
 };
 export const getAllAdminCheckList = () => {
   const headers = getApiHeaders();

@@ -9,8 +9,7 @@ const ForgetPasswordOtp = () => {
   const [loading, setLoading] = useState(false);
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
+      .email("Invalid email address"),
     mob: Yup.string()
       .length(10, "Phone number should be 10 digits")
       .required("Phone number is required"),
@@ -65,8 +64,8 @@ const ForgetPasswordOtp = () => {
           >
             <h3 style={{ color: "blue" }}>ONiE Soft</h3>
             <br />
-            <h4>Forget Password</h4>
-            <div className="form-group row justify-content-center align-items-center p-3">
+            <h4 className="mb-3">Forget Password/SetPassword</h4>
+            <div className="form-group row justify-content-center align-items-center p-1">
               <label
                 htmlFor="email"
                 className="col-sm-1 col-form-label fw-semibold"
@@ -88,14 +87,14 @@ const ForgetPasswordOtp = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
-                  required
+                 
                 />
                 <p className="text-danger">
                   {formik.touched.email && formik.errors.email}
                 </p>
               </div>
             </div>
-
+                <p>OR</p>
             <div className="form-group row justify-content-center align-items-center">
               <label
                 htmlFor="mob"

@@ -1,13 +1,12 @@
 import React, { useState,useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import "./AdminNewBeeCheckListEdit.css";
-import { updateAdminCheckList } from "./Services/Api";
+import "./EmployeChecklistEdit.css";
+import { postUserCheckList, getUserCheckList } from "./Services/Api";
 import { useLocation, useNavigate } from "react-router-dom";
-const AdminNewBeeCheckListEdit = ({formDta}) => {
+const AdminViewUserCheckList = ({formDta}) => {
   const navigate = useNavigate();
   const initialValues = {
-    id:formDta.id,
     empId: formDta.empId,
     candidateConfirmation: formDta.candidateConfirmation,
     hrAssignment: formDta.hrAssignment,
@@ -45,7 +44,7 @@ const AdminNewBeeCheckListEdit = ({formDta}) => {
         return;
       }
     try {
-      const response = await updateAdminCheckList(values);
+      const response = await postUserCheckList(values);
       if (response.status === 200) {
         alert("Details Saved Successfully");
         window.location.reload();
@@ -57,7 +56,7 @@ const AdminNewBeeCheckListEdit = ({formDta}) => {
   return (
     <div className="employee-checklist">
       <h3 className="text-center mb-2 text-primary">
-       Admin New Bee Checklist Edit
+        New Bee Checklist Edit
       </h3>
       <Formik
         initialValues={initialValues}
@@ -68,7 +67,7 @@ const AdminNewBeeCheckListEdit = ({formDta}) => {
           <Form>
             <div className="row">
               <div className="col-md-12 mb-4">
-                <h5 className="text-center mt-2 mb-5">Joining Day</h5>
+                <h5 className="text-center mt-2 mb-2">Joining Day</h5>
                 <div style={{ marginTop: "25px" }} className="row">
                   <div className="col-md-3">
                     <div className="checkbox-group">
@@ -177,7 +176,7 @@ const AdminNewBeeCheckListEdit = ({formDta}) => {
                       </label>
                     </div>
                   </div>
-                  <h5 className="text-center mt-4 mb-5">First Work Day</h5>
+                  <h5 className="text-center mt-2 mb-2">First Work Day</h5>
                   <div className="col-md-3">
                     <div className="checkbox-group">
                       <label>
@@ -285,11 +284,6 @@ const AdminNewBeeCheckListEdit = ({formDta}) => {
                 </div>
               </div>
             </div>
-            <div className="text-center">
-              <button type="submit" className="btn btn-primary">
-                Edit
-              </button>
-            </div>
           </Form>
         
       </Formik>
@@ -297,4 +291,4 @@ const AdminNewBeeCheckListEdit = ({formDta}) => {
   );
 };
 
-export default AdminNewBeeCheckListEdit;
+export default AdminViewUserCheckList;

@@ -42,18 +42,20 @@ const SuperAdminDashBoard = () => {
       >
         <CDBSidebar textColer="#fff" backgroundColor="rgb(37 122 119 / 46%);">
           <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-            <button 
-             style={{
-        border: "none",
-        backgroundColor: "transparent",
-        cursor: "pointer",
-        padding: 0,
-      }}onClick={()=>navigate("/superadmindashboardlayout",{state:{data:data}})}>
-              <img
-                src={OnieLogoImage}
-                alt="ONiE SOFT"
-                className="img-fluid"
-              />
+            <button
+              style={{
+                border: "none",
+                backgroundColor: "transparent",
+                cursor: "pointer",
+                padding: 0,
+              }}
+              onClick={() =>
+                navigate("/superadmindashboardlayout/superadminpiechart", {
+                  state: { data: data },
+                })
+              }
+            >
+              <img src={OnieLogoImage} alt="ONiE SOFT" className="img-fluid" />
             </button>
           </CDBSidebarHeader>
           <CDBSidebarContent
@@ -61,7 +63,7 @@ const SuperAdminDashBoard = () => {
             style={{ display: "flex", marginLeft: "5px" }}
           >
             <CDBSidebarMenu>
-            <Button
+              <Button
                 variant="outline-info"
                 size="sm"
                 style={buttonStyle}
@@ -80,9 +82,12 @@ const SuperAdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/superadmindashboardlayout/viewallpersonaldetails", {
-                    state: { data: data },
-                  })
+                  navigate(
+                    "/superadmindashboardlayout/viewallpersonaldetails",
+                    {
+                      state: { data: data },
+                    }
+                  )
                 }
               >
                 <CDBSidebarMenuItem icon="child">
@@ -95,9 +100,12 @@ const SuperAdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/superadmindashboardlayout/viewallemployeedetails", {
-                    state: { data: data },
-                  })
+                  navigate(
+                    "/superadmindashboardlayout/viewallemployeedetails",
+                    {
+                      state: { data: data },
+                    }
+                  )
                 }
               >
                 <CDBSidebarMenuItem icon="sticky-note">
@@ -140,9 +148,12 @@ const SuperAdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/superadmindashboardlayout/viewallemergencydetails", {
-                    state: { data: data },
-                  })
+                  navigate(
+                    "/superadmindashboardlayout/viewallemergencydetails",
+                    {
+                      state: { data: data },
+                    }
+                  )
                 }
               >
                 <CDBSidebarMenuItem icon="ambulance">
@@ -168,7 +179,7 @@ const SuperAdminDashBoard = () => {
                 size="sm"
                 style={buttonStyle}
                 onClick={() =>
-                  navigate("/superadmindashboardlayout/profile", {
+                  navigate("/superadmindashboardlayout/superadminprofile", {
                     state: { data: data },
                   })
                 }

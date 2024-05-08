@@ -9,13 +9,13 @@ const AdminNewBeeCheckList = () => {
   const [formDta,setFormData]=useState(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const email = location.state?.data.email;
+  const empId = location.state?.data.empId1;
   useEffect(() => {
-    fetchAdminCheckListData(email);
-  }, [email]);
-
-  const fetchAdminCheckListData = (email) => {
-    getAdminCheckList(email)
+    fetchAdminCheckListData(empId);
+  }, [empId]);
+ 
+  const fetchAdminCheckListData = (empId) => {
+    getAdminCheckList(empId)
       .then((response) => {
         setFormData(response.data[0]);
       })
@@ -23,11 +23,12 @@ const AdminNewBeeCheckList = () => {
         console.log(error);
       });
   };
-  if(formDta!=null){
+  if(formDta){
+  
     return <div><AdminNewBeeCheckListEdit formDta={formDta}/></div>
   }
   const initialValues = {
-    email: email,
+    empId: empId,
     candidateConfirmation: false,
     hrAssignment: false,
     submitRelievingLetter: false,
@@ -71,7 +72,7 @@ const AdminNewBeeCheckList = () => {
   return (
     <div className="employee-checklist">
       <h3 className="text-center mb-2 text-primary">
-        New Bee Checklist 
+       Admin Add New Bee Checklist
       </h3>
       <Formik
         initialValues={initialValues}
@@ -82,7 +83,7 @@ const AdminNewBeeCheckList = () => {
           <Form>
             <div className="row">
               <div className="col-md-12 mb-4">
-                <h5 className="text-center mt-2 mb-2">Joining Day</h5>
+                <h5 className="text-center mt-2 mb-5">Joining Day</h5>
                 <div style={{ marginTop: "25px" }} className="row">
                   <div className="col-md-3">
                     <div className="checkbox-group">
@@ -191,7 +192,7 @@ const AdminNewBeeCheckList = () => {
                       </label>
                     </div>
                   </div>
-                  <h5 className="text-center mt-2 mb-2">First Work Day</h5>
+                  <h5 className="text-center mt-4 mb-5">First Work Day</h5>
                   <div className="col-md-3">
                     <div className="checkbox-group">
                       <label>

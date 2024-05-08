@@ -10,7 +10,7 @@ import { MdDelete } from "react-icons/md";
 const ViewAllEmergencyDetails = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const [formData, setFormData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
@@ -28,14 +28,14 @@ const ViewAllEmergencyDetails = () => {
         setLoading(false);
       });
   };
-  const confirmDelete = (email) => {
+  const confirmDelete = (empId) => {
     const confirmed = window.confirm(
       "Are you sure you want to save the changes?"
     );
     if (!confirmed) {
       return;
     }
-    deleteEmergencyDetails(email)
+    deleteEmergencyDetails(empId)
       .then((response) => {
         if (response.status === 200) {
           alert("Deleted SucessFully");
@@ -130,12 +130,12 @@ const ViewAllEmergencyDetails = () => {
                     <td>{emp.mobileNumber}</td>
                     <td>{emp.state}</td>
                     <td>{emp.city}</td>
-                    <td>{emp.email}</td>
+                    <td>{emp.empId}</td>
                     <td>
                       {" "}
                       <button
                         className=""
-                        onClick={() => confirmDelete(emp.email)}
+                        onClick={() => confirmDelete(emp.empId)}
                       >
                         <MdDelete
                           style={{

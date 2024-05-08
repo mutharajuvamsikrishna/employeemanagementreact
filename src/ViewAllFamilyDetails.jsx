@@ -11,7 +11,10 @@ import { MdDelete } from "react-icons/md";
 const ViewAllFamilyDetails = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
+  const empData={
+    empId:empId
+      }
   const navigate = useNavigate();
   const [formData, setFormData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -30,14 +33,14 @@ const ViewAllFamilyDetails = () => {
         setLoading(false);
       });
   };
-  const confirmDelete = (email) => {
+  const confirmDelete = (empId) => {
     const confirmed = window.confirm(
       "Are you sure you want to save the changes?"
     );
     if (!confirmed) {
       return;
     }
-    deleteFamilyDetails(email)
+    deleteFamilyDetails(empId)
       .then((response) => {
         if (response.status === 200) {
           alert("Deleted SucessFully");
@@ -57,9 +60,10 @@ const ViewAllFamilyDetails = () => {
         console.error(error);
       });
   };
-  const handleNavigate = (email) => {
+  const handleNavigate = (empId) => {
     const data = {
-      email: email,
+      empId1: empId,
+      empId:empData.empId,
     };
     navigate("/admindashboardlayout/familydetailsview", { state: { data: data } });
   };
@@ -117,7 +121,7 @@ const ViewAllFamilyDetails = () => {
                 </button>
               </form>
             </div>
-            <h2 className="text-center mt-2">Employee Details</h2>
+            <h2 className="text-center mt-2">Family Details</h2>
             <table className="table table-striped table-bordered">
               <thead>
                 <tr>
@@ -136,11 +140,11 @@ const ViewAllFamilyDetails = () => {
                     <td>{emp.fatherAadhar}</td>
                     <td>{emp.fatherPanCard}</td>
                     <td>{emp.motherName}</td>
-                    <td>{emp.email}</td>
+                    <td>{emp.empId}</td>
 
                     <td>
                       {" "}
-                      <button onClick={() => handleNavigate(emp.email)}>
+                      <button onClick={() => handleNavigate(emp.empId)}>
                         <MdOutlineContentPasteSearch
                           style={{
                             height: "20px",
@@ -154,7 +158,7 @@ const ViewAllFamilyDetails = () => {
                       {" "}
                       <button
                         className=""
-                        onClick={() => confirmDelete(emp.email)}
+                        onClick={() => confirmDelete(emp.empId)}
                       >
                         <MdDelete
                           style={{

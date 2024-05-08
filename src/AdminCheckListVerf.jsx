@@ -1,51 +1,65 @@
 import React, { useState,useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import "./AdminNewBeeCheckListEdit.css";
-import { updateAdminCheckList } from "./Services/Api";
+import "./EmployeeChecklist.css";
+import { postUserCheckList, getUserCheckList } from "./Services/Api";
 import { useLocation, useNavigate } from "react-router-dom";
-const AdminNewBeeCheckListEdit = ({formDta}) => {
+import AdminViewUserCheckList from "./AdminViewUserCheckList";
+const AdminCheckListVerf = () => {
+  const [formDta,setFormData]=useState(null);
+  const location = useLocation();
   const navigate = useNavigate();
+  const empId = location.state?.data.empId1;
+ 
+  useEffect(() => {
+    fetchUserCheckListData(empId);
+  }, [empId]);
+
+  const fetchUserCheckListData = (empId) => {
+    getUserCheckList(empId)
+      .then((response) => {
+        setFormData(response.data[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  if(formDta!==null){
+    return <div><AdminViewUserCheckList formDta={formDta}/></div>
+  }
   const initialValues = {
-    id:formDta.id,
-    empId: formDta.empId,
-    candidateConfirmation: formDta.candidateConfirmation,
-    hrAssignment: formDta.hrAssignment,
-    submitRelievingLetter: formDta.submitRelievingLetter,
-    submitExperienceLetter: formDta.submitExperienceLetter,
-    submitPayslips: formDta.submitPayslips,
-    fillJoiningForm: formDta.fillJoiningForm,
-    submitPhotos: formDta.submitPhotos,
-    submitCertificates: formDta.submitCertificates,
-    signContract: formDta.signContract,
-    signITIPR: formDta.signITIPR,
-    signJoiningLetter: formDta.signJoiningLetter,
-    welcomeKit: formDta.welcomeKit,
-    employeeNumber: formDta.employeeNumber,
-    laptop: formDta.laptop,
-    workstation: formDta.workstation,
-    internetAccess: formDta.internetAccess,
-    intranetAccess: formDta.intranetAccess,
-    emailAccess: formDta.emailAccess,
-    teamsAccess: formDta.teamsAccess,
-    attendance: formDta.attendance,
-    timeSheet: formDta.timeSheet,
-    finance: formDta.finance,
-    employeeIDCard: formDta.employeeIDCard,
-    employeeAccessCard: formDta.employeeAccessCard,
-    parkingSlot: formDta.parkingSlot,
+    empId: empId,
+    candidateConfirmation: false,
+    hrAssignment: false,
+    submitRelievingLetter: false,
+    submitExperienceLetter: false,
+    submitPayslips: false,
+    fillJoiningForm: false,
+    submitPhotos: false,
+    submitCertificates: false,
+    signContract: false,
+    signITIPR: false,
+    signJoiningLetter: false,
+    welcomeKit: false,
+    employeeNumber: false,
+    laptop: false,
+    workstation: false,
+    internetAccess: false,
+    intranetAccess: false,
+    emailAccess: false,
+    teamsAccess: false,
+    attendance: false,
+    timeSheet: false,
+    finance: false,
+    employeeIDCard: false,
+    employeeAccessCard: false,
+    parkingSlot: false,
   };
 
   const validationSchema = Yup.object().shape({});
   const handleSubmit = async (values) => {
-    const confirmed = window.confirm(
-        "Are you sure you want to save the changes?"
-      );
-      if (!confirmed) {
-        return;
-      }
     try {
-      const response = await updateAdminCheckList(values);
+      const response = await postUserCheckList(values);
       if (response.status === 200) {
         alert("Details Saved Successfully");
         window.location.reload();
@@ -54,21 +68,22 @@ const AdminNewBeeCheckListEdit = ({formDta}) => {
       console.error(error);
     }
   };
+
   return (
     <div className="employee-checklist">
       <h3 className="text-center mb-2 text-primary">
-       Admin New Bee Checklist Edit
+        New Bee Checklist 
       </h3>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-
+       
           <Form>
             <div className="row">
               <div className="col-md-12 mb-4">
-                <h5 className="text-center mt-2 mb-5">Joining Day</h5>
+                <h5 className="text-center mt-2 mb-2">Joining Day</h5>
                 <div style={{ marginTop: "25px" }} className="row">
                   <div className="col-md-3">
                     <div className="checkbox-group">
@@ -177,7 +192,7 @@ const AdminNewBeeCheckListEdit = ({formDta}) => {
                       </label>
                     </div>
                   </div>
-                  <h5 className="text-center mt-4 mb-5">First Work Day</h5>
+                  <h5 className="text-center mt-2 mb-2">First Work Day</h5>
                   <div className="col-md-3">
                     <div className="checkbox-group">
                       <label>
@@ -287,14 +302,14 @@ const AdminNewBeeCheckListEdit = ({formDta}) => {
             </div>
             <div className="text-center">
               <button type="submit" className="btn btn-primary">
-                Edit
+                Submit
               </button>
             </div>
           </Form>
-        
+      
       </Formik>
     </div>
   );
 };
 
-export default AdminNewBeeCheckListEdit;
+export default AdminCheckListVerf;

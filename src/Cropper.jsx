@@ -3,7 +3,7 @@ import AvatarEditor from "react-avatar-editor";
 import { FcAddImage } from "react-icons/fc";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { postAvatarDetails, getAvatarDetails } from "./Services/Api";
+import { deleteAvatarDetails, postAvatarDetails, getAvatarDetails } from "./Services/Api";
 
 const Modal = styled.div`
   display: none;
@@ -56,7 +56,7 @@ const SaveButton = styled.button`
 
 const Container = styled.div`
   margin-top: 50px;
-  margin-left:250px;
+  margin-left: 250px;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -90,12 +90,10 @@ const CropperModal = ({
   setPreview,
   setSrc,
   resetInput,
+  empId,
 }) => {
   const [slideValue, setSlideValue] = useState(10);
   const cropRef = useRef(null);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const email = location.state?.data.email;
 
   const handleSave = async () => {
     if (cropRef.current) {
@@ -103,7 +101,7 @@ const CropperModal = ({
       const blob = await fetch(dataUrl).then((res) => res.blob());
 
       const formData = new FormData();
-      formData.append("email", email);
+      formData.append("empId", empId);
       formData.append("avatarFile", blob, "avatar.png");
 
       postAvatarDetails(formData)
@@ -131,11 +129,11 @@ const CropperModal = ({
   };
 
   useEffect(() => {
-    fetchAvatarData(email);
-  }, [email]);
+    fetchAvatarData(empId);
+  }, [empId]);
 
-  const fetchAvatarData = (email) => {
-    getAvatarDetails(email)
+  const fetchAvatarData = (empId) => {
+    getAvatarDetails(empId)
       .then((response) => {
         if (response.status === 200) {
           const dataUrl = `data:image/png;base64,${response.data.fileContents}`;
@@ -183,6 +181,8 @@ const Cropper = () => {
   const [preview, setPreview] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const inputRef = useRef(null);
+  const location = useLocation();
+  const empId = location.state?.data.empId;
 
   const handleInputClick = (e) => {
     e.preventDefault();
@@ -207,13 +207,32 @@ const Cropper = () => {
     }
   };
 
+  const handleDelete = () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to save the changes?"
+    );
+    if (!confirmed) {
+      return;
+    }
+    deleteAvatarDetails(empId)
+      .then((response) => {
+        if (response.status === 200) {
+          alert("Deleted SucessFully");
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <>
       <Container>
-      <header>
-        <h1>Upload Avatar</h1>
-        <hr />
-      </header>
+        <header>
+          <h1>Upload Avatar</h1>
+          <hr />
+        </header>
         <CropperModal
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
@@ -221,6 +240,7 @@ const Cropper = () => {
           setPreview={setPreview}
           setSrc={setSrc}
           resetInput={resetInput}
+          empId={empId}
         />
         <a href="/" onClick={handleInputClick}>
           <FcAddImage className="add-icon" />
@@ -243,13 +263,18 @@ const Cropper = () => {
             height="200"
           />
         </div>
+        {preview&&(
+        <div className="mt-2 mb-2">
+          <button className="btn btn-secondary" onClick={handleDelete}>
+            Remove
+          </button>
+        </div>
+        )}
       </Container>
       <div
         className="text-center"
         style={{ paddingTop: "30px", marginBottom: "20px" }}
-      >
-        
-      </div>
+      ></div>
     </>
   );
 };

@@ -55,7 +55,7 @@ const DashBoard = () => {
                 padding: 0,
               }}
               onClick={() =>
-                navigate("/dashboardlayout", { state: { data: data } })
+                navigate("/dashboardlayout/piechart", { state: { data: data } })
               }
             >
               <img src={OnieLogoImage} alt="ONiE SOFT" className="img-fluid" />

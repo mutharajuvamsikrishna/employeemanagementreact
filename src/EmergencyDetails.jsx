@@ -9,18 +9,18 @@ import ViewEmergencyDetails from "./ViewEmergencyDetails";
 
 const EmergencyDetails = () => {
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const [formData, setFormData] = useState([]);
   const [stateList, setStateList] = useState([]);
   const [cityList, setCityList] = useState([]);
 
   useEffect(() => {
-    fetchEmergencyData(email);
+    fetchEmergencyData(empId);
     fetchStates();
-  }, [email]);
+  }, [empId]);
 
-  const fetchEmergencyData = (email) => {
-    getEmergencyDetails(email)
+  const fetchEmergencyData = (empId) => {
+    getEmergencyDetails(empId)
       .then((response) => {
         setFormData(response.data);
       })
@@ -51,7 +51,7 @@ const EmergencyDetails = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: email,
+      empId: empId,
       name: "",
       relation: "",
       mobileNumber: "",

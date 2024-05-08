@@ -5,19 +5,19 @@ import "./ViewEmployeeDetails.css";
 const ViewEmployeeDetails = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId1;
 const navigate=useNavigate();
   const data={
-    email:email
+    empId:empId
   }
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
-    fetchEmployeeData(email);
-  }, [email]);
+    fetchEmployeeData(empId);
+  }, [empId]);
 
-  const fetchEmployeeData = (email) => {
-    getEmployeeDetails(email)
+  const fetchEmployeeData = (empId) => {
+    getEmployeeDetails(empId)
       .then((response) => {
         setLoading(false);
         // Accessing the first element of the array
@@ -129,19 +129,6 @@ const navigate=useNavigate();
             </table>
           </>
         )}
-        <div
-          className="text-center"
-          style={{ paddingTop: "20px", paddingBottom: "20px" }}
-        >
-          <button
-            className="btn btn-primary"
-            onClick={() =>
-              navigate("/dashboardlayout/editemployeedetails", { state: { data: data } })
-            }
-          >
-            Edit
-          </button>
-        </div>
         <div className="text-center" style={{ paddingTop: "30px" }}>
           
         </div>

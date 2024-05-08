@@ -6,9 +6,9 @@ const ViewAdminPersonal = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const [fileContent, setFileContent] = useState([]);
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const data = {
-    email: email,
+    empId: empId,
   };
   const navigate = useNavigate();
 
@@ -16,13 +16,13 @@ const ViewAdminPersonal = () => {
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
-    fetchPersonalData(email);
-  }, [email]);
+    fetchPersonalData(empId);
+  }, [empId]);
 
-  const fetchPersonalData = (email) => {
+  const fetchPersonalData = (empId) => {
     //axios
-    //  .get(`http://localhost:1279/viewpersonal?email=${regno}`)
-    getPersonalDetails(email)
+    //  .get(`http://localhost:1279/viewpersonal?empId=${regno}`)
+    getPersonalDetails(empId)
       .then((response) => {
         setLoading(false);
 

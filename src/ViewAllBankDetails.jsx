@@ -10,7 +10,7 @@ import { MdDelete } from "react-icons/md";
 const ViewAllBankDetails = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const [formData, setFormData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
@@ -28,14 +28,14 @@ const ViewAllBankDetails = () => {
         setLoading(false);
       });
   };
-  const confirmDelete = (email) => {
+  const confirmDelete = (empId) => {
     const confirmed = window.confirm(
       "Are you sure you want to save the changes?"
     );
     if (!confirmed) {
       return;
     }
-    deleteBankDetails(email)
+    deleteBankDetails(empId)
       .then((response) => {
         if (response.status === 200) {
           alert("Deleted SucessFully");
@@ -130,12 +130,12 @@ const ViewAllBankDetails = () => {
                     <td>{emp.ifcCode}</td>
                     <td>{emp.branch}</td>
                     <td>{emp.name}</td>
-                    <td>{emp.email}</td>
+                    <td>{emp.empId}</td>
                     <td>
                       {" "}
                       <button
                         className=""
-                        onClick={() => confirmDelete(emp.email)}
+                        onClick={() => confirmDelete(emp.empId)}
                       >
                         <MdDelete
                           style={{

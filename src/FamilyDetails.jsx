@@ -8,15 +8,15 @@ import FamilyDetailsView from "./FamilyDetailsView";
 const FamilyDetails = () => {
   const navigate = useNavigate(); // Import useNavigate
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
-    fetchFamilyData(email);
-  }, [email]);
+    fetchFamilyData(empId);
+  }, [empId]);
 
-  const fetchFamilyData = (email) => {
-    getFamilyDetails(email)
+  const fetchFamilyData = (empId) => {
+    getFamilyDetails(empId)
       .then((response) => {
         setFormData(response.data);
       })
@@ -26,7 +26,7 @@ const FamilyDetails = () => {
   };
   const formik = useFormik({
     initialValues: {
-      email: email,
+      empId: empId,
       fatherName: "",
       fatherAadhar: "",
       fatherPanCard: "",

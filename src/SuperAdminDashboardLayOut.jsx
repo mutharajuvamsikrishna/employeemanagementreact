@@ -26,24 +26,26 @@ import ViewAdminPersonal from "./ViewAdminPersonal";
 import Profile from "./UserProfile";
 import Cropper from "./Cropper";
 import RaiseTicket from "./RaiseTicket";
-import ProfileImage from "./ProfileImage";
 import AdminTicketSolve from "./AdminTicketSolve";
 import { getProfiles } from "./Services/Api";
 import SuperAdminDashBoard from "./SuperAdminDashboard";
 import AddEmployee from "./AddEmployee";
+import EditRegisterDetails from "./EditRegisterDetails";
+import SuperadminProfileImage from "./SuperAdminProfileImage";
+import SuperAdminChart from "./SuperAdminChart";
 const SuperAdminDashboardLayOut = () => {
   const [employee, setEmployee] = useState(null);
   const [load, setLoad] = useState(true);
   const location = useLocation();
   const data = location.state?.data;
-  const email = location.state?.data.email;
+  const empId = location.state?.data.empId;
   useEffect(() => {
-    fetchEmployee(email);
-  }, [email]);
-  const fetchEmployee = (email) => {
+    fetchEmployee(empId);
+  }, [empId]);
+  const fetchEmployee = (empId) => {
     // axios
-    //  .get(`http://localhost:1279/reg?email=${email}`)
-    getProfiles(email)
+    //  .get(`http://localhost:1279/reg?empId=${empId}`)
+    getProfiles(empId)
       .then((response) => {
         setEmployee(response.data);
         setLoad(false);
@@ -68,9 +70,11 @@ const SuperAdminDashboardLayOut = () => {
   return (
     <div className="d-flex">
       <SuperAdminDashBoard employee={employee} />
-      <ProfileImage employee={employee} />
+      <SuperadminProfileImage employee={employee} />
+    
       <Routes>
         <Route path="/personaldetails" element={<PersonalDetails />} />
+        <Route path="/superadminpiechart" element={<SuperAdminChart/>}/>
         <Route path="/editpersonaldetails" element={<UserPersonalEdit />} />
         <Route path="/employeedetails" element={<EmployeeDetails />} />
         <Route path="/viewemployeedetails" element={<ViewEmployeeDetails />} />
@@ -85,7 +89,7 @@ const SuperAdminDashboardLayOut = () => {
           element={<EmergencyDetailsEdit />}
         />
         <Route path="/admindashboard" element={<AdminDashBoard />} />
-        <Route path="/registers" element={<ViewAllAdminRegister />} />
+        <Route path="/registers" element={<ViewAllAdminRegister employee={employee}/>} />
         <Route path="/viewallbankdetails" element={<ViewAllBankDetails />} />
         <Route
           path="/viewallemergencydetails"
@@ -105,12 +109,13 @@ const SuperAdminDashboardLayOut = () => {
           element={<ViewAllPersonalDetails />}
         />
         <Route path="/viewadminpersonal" element={<ViewAdminPersonal />} />
-        <Route path="/profile" element={<Profile employee={employee} />} />
-        <Route path="/avatar" element={<Cropper />} />
+        <Route path="/superadminprofile" element={<Profile employee={employee} />} />
+        <Route path="/superadminavatar" element={<Cropper />} />
         <Route path="/raiseticket" element={<RaiseTicket />} />
         <Route path="/viewticket" element={<ViewTicket />} />
         <Route path="/adminticketreslove" element={<AdminTicketSolve employee={employee} />} />
         <Route path="/addnewemployee" element={<AddEmployee employee={employee} />} />
+        <Route path="/editregisterdetails" element={<EditRegisterDetails employee={employee}/>} />
       </Routes>
     </div>
   );

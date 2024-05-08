@@ -12,8 +12,14 @@ const App = () => {
         <Routes>
           <Route path="/dashboardlayout/*" element={<DashboardLayout />} />
           <Route path="/*" element={<Home />} />
-          <Route path="/admindashboardlayout/*" element={<AdminDashboardLayout />} />
-          <Route path="/superadmindashboardlayout/*" element={<SuperAdminDashboardLayOut />} />
+          <Route
+            path="/admindashboardlayout/*"
+            element={<AdminDashboardLayout />}
+          />
+          <Route
+            path="/superadmindashboardlayout/*"
+            element={<SuperAdminDashboardLayOut />}
+          />
         </Routes>
       </Router>
     </div>

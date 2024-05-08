@@ -9,17 +9,17 @@ import { Country, State, City } from "country-state-city";
 const PersonalDetails = ({employee}) => {
   const navigate = useNavigate(); // Import useNavigate
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const [formData, setFormData] = useState([]);
   const [stateList, setStateList] = useState([]);
   const [cityList, setCityList] = useState([]);
   useEffect(() => {
-    fetchPersonalData(email);
+    fetchPersonalData(empId);
     fetchStates();
-  }, [email]);
+  }, [empId]);
 
-  const fetchPersonalData = (email) => {
-    getPersonalDetails(email)
+  const fetchPersonalData = (empId) => {
+    getPersonalDetails(empId)
       .then((response) => {
         setFormData([response.data]);
       })
@@ -47,7 +47,7 @@ const PersonalDetails = ({employee}) => {
   };
   const formik = useFormik({
     initialValues: {
-      email: email,
+      empId: empId,
       aadhar: "",
       pan: "",
       val1: "",
@@ -247,7 +247,7 @@ const PersonalDetails = ({employee}) => {
   if (formData.length > 0) {
     return (
       <div>
-        <UserPersonalView />
+        <UserPersonalView/>
       </div>
     );
   }

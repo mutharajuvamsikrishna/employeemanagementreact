@@ -7,14 +7,14 @@ import {
   putRaiseDisputeDetailsUpdate,
 } from "./Services/Api";
 import "./AdminTicketSolve.css";
-const AdminTicketSolve = ({ employee }) => {
+const AdminTicketSolve = ({ employee}) => {
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
-  const email = location.state.data.email;
-  const data = { email: email };
+  const empId = location.state.data.empId;
+  const data = { empId: empId };
   const navigate = useNavigate();
 
   useEffect(() => {

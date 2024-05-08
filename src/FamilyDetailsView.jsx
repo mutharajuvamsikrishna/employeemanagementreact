@@ -6,20 +6,20 @@ import "./FamilyDetailsView.css";
 const FamilyDetailsView = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const navigate=useNavigate();
   const data={
-    email:email
+    empId:empId
   }
   // State object to store form field values
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
-    fetchFamilyData(email);
-  }, [email]);
+    fetchFamilyData(empId);
+  }, [empId]);
 
-  const fetchFamilyData = (email) => {
-    getFamilyDetails(email)
+  const fetchFamilyData = (empId) => {
+    getFamilyDetails(empId)
       .then((response) => {
         setLoading(false);
         // Accessing the first element of the array

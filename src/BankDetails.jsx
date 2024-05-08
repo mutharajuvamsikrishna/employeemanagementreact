@@ -7,15 +7,15 @@ import ViewBankDetails from "./ViewBankDetails";
 import "./BankDetails.css";
 const BankDetails = () => {
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const [formData, setFormData] = useState([]);
 
   useEffect(() => {
-    fetchBankData(email);
-  }, [email]);
+    fetchBankData(empId);
+  }, [empId]);
 
-  const fetchBankData = (email) => {
-    getBankDetails(email)
+  const fetchBankData = (empId) => {
+    getBankDetails(empId)
       .then((response) => {
         setFormData([response.data]);
       })
@@ -26,7 +26,7 @@ const BankDetails = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: email,
+      empId: empId,
       bankName: "",
       branch: "",
       ifcCode: "",
@@ -94,7 +94,7 @@ const BankDetails = () => {
   return (
     <div className="bank">
       <div className="row g-3 justify-content-center align-items-center">
-        <h4 className="text-center text-primary">Employee Details</h4>
+        <h4 className="text-center text-primary">Bank Details</h4>
         <div className="col-md-12 mb-2">
           <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
             <div className="row">

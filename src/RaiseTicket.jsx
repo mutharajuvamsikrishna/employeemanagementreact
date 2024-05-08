@@ -9,7 +9,7 @@ import "./RaiseTicket.css";
 const RaiseTicket = ({employee}) => {
   const location = useLocation();
   const data = location.state.data;
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const navigate = useNavigate();
   const [res, setRes] = useState(false);
   const [selectedMainType, setSelectedMainType] = useState(null);
@@ -24,7 +24,8 @@ const RaiseTicket = ({employee}) => {
 
   const formik = useFormik({
     initialValues: {
-      email: email,
+      empId: empId,
+      email:employee.email,
       complaintDate: new Date().toISOString().split("T")[0],
       selectedMainType: selectedMainType,
       selectedSubType: selectedSubType,

@@ -9,17 +9,17 @@ import { Country, State } from "country-state-city";
 const EmployeeDetails = () => {
   const navigate = useNavigate(); // Import useNavigate
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const [formData, setFormData] = useState([]);
   const [countryList, setCountryList] = useState([]);
   const [stateList, setStateList] = useState([]);
   useEffect(() => {
-    fetchEmergencyData(email);
+    fetchEmergencyData(empId);
     fetchCountries();
-  }, [email]);
+  }, [empId]);
 
-  const fetchEmergencyData = (email) => {
-    getEmployeeDetails(email)
+  const fetchEmergencyData = (empId) => {
+    getEmployeeDetails(empId)
       .then((response) => {
         setFormData(response.data);
       })
@@ -50,7 +50,7 @@ const EmployeeDetails = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: email,
+      empId: empId,
       totalExperience: "",
       currentCtc: "",
       role: "",
@@ -59,7 +59,6 @@ const EmployeeDetails = () => {
       isLaptop: "",
       laptopIssueDate: "",
       laptopModel: "",
-      empId: "",
       pf: "",
       domain: "",
       skills: "",
@@ -108,7 +107,6 @@ const EmployeeDetails = () => {
         }
         return schema;
       }),
-      empId: Yup.string().required("required"),
       domain: Yup.string().required("required"),
       skills: Yup.string().required("required"),
       onsite: Yup.string().required("required"),
@@ -245,28 +243,6 @@ const EmployeeDetails = () => {
           <div className="col-md-12 mb-2">
             <form onSubmit={formik.handleSubmit}>
               <div className="row">
-                <div className="col-md-4 mb-4">
-                  <label>Employee ID</label>
-                  <input
-                    type="text"
-                    name="empId"
-                    placeholder="Enter Employee ID"
-                    className={`border  form-control ${
-                      formik.touched.empId && formik.errors.empId
-                        ? "is-invalid"
-                        : ""
-                    }`}
-                    value={formik.values.empId}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    required
-                  />
-                  {formik.touched.empId && formik.errors.empId && (
-                    <div className="invalid-feedback">
-                      {formik.errors.empId}
-                    </div>
-                  )}
-                </div>
                 <div className="col-md-4 mb-4">
                   <label>Total Experience</label>
                   <input

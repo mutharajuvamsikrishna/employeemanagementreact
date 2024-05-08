@@ -8,9 +8,9 @@ import ProfileImage from "./ProfileImage";
 const UserProfile = ({ employee }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const data = {
-    email: email,
+    empId: empId,
   };
   const handleLogOut = () => {
     localStorage.clear();
@@ -37,29 +37,28 @@ const UserProfile = ({ employee }) => {
               <table className="table table-striped table-bordered">
                 <tbody>
                   <tr>
-                    <td>Name</td>
-                    <td>{employee.name}</td>
-
-                    <td>Email</td>
-                    <td>{employee.email}</td>
-                  </tr>
-                  <tr>
-                    <td>Mobile Number</td>
-                    <td>{employee.mob}</td>
-                    <td>Role</td>
-                    <td>{employee.roles}</td>
+                <th>Name</th>
+                  <th>Tel Number</th>
+                  <th>Per-Email</th>
+                  <th>Email</th>
+                  <th>Employee ID</th>
+                  <th>Role</th>
+                  <th>Designation</th>
+                  <th>CTC</th>
                   </tr>
                 </tbody>
+                <tr>
+                <td>{employee.name}</td>
+                    <td>{employee.mob}</td>
+                    <td>{employee.personalEmail}</td>
+                    <td>{employee.email}</td>
+                    <td>{employee.empId}</td>
+                    <td>{employee.roles}</td>
+                    <td>{employee.designation}</td>
+                    <td>{employee.ctc}</td>
+                </tr>
               </table>
             </center>
-            <div>
-              <button
-                className="btn btn-primary"
-                onClick={() => navigate("/admindashboardlayout/avatar", { state: { data: data } })}
-              >
-                Upload Avatar
-              </button>
-            </div>
             <div className="profile-info">
               <br />
               <center>

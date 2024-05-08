@@ -9,20 +9,20 @@ import { Country, State, City } from "country-state-city";
 
 const EmergencyDetailsEdit = () => {
   const location = useLocation();
-  const email = location.state.data.email;
+  const empId = location.state.data.empId;
   const [stateList, setStateList] = useState([]);
   const [cityList, setCityList] = useState([]);
 
   useEffect(() => {
-    fetchEmergencyData(email);
+    fetchEmergencyData(empId);
     fetchStates();
-  }, [email]);
+  }, [empId]);
 
-  const fetchEmergencyData = (email) => {
-    getEmergencyDetails(email)
+  const fetchEmergencyData = (empId) => {
+    getEmergencyDetails(empId)
       .then((response) => {
         formik.setValues({
-          email: response.data[0].email,
+          empId: response.data[0].empId,
           name: response.data[0].name,
           relation: response.data[0].relation,
           mobileNumber: response.data[0].mobileNumber,
@@ -57,7 +57,7 @@ const EmergencyDetailsEdit = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: email,
+      empId: empId,
       name: "",
       relation: "",
       mobileNumber: "",
