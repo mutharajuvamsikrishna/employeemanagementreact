@@ -38,7 +38,7 @@ const AdminDashBoard = () => {
   return (
     <>
       <div
-        style={{ display: "flex", height: "99vh", overflow: "scroll initial" }}
+        style={{ display: "flex", height: "99vh", overflow: "scroll initial",position:"-webkit-sticky" }}
       >
         <CDBSidebar textColer="#fff" backgroundColor="rgb(37 122 119 / 46%);">
           <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>

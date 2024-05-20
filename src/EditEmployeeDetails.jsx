@@ -34,7 +34,6 @@ const EditEmployeeDetails = () => {
           isLaptop: response.data[0].isLaptop || "",
           laptopIssueDate: response.data[0].laptopIssueDate || "",
           laptopModel: response.data[0].laptopModel || "",
-          empId: response.data[0].empId || "",
           pf: response.data[0].pf || "",
           domain: response.data[0].domain || "",
           skills: response.data[0].skills || "",
@@ -85,7 +84,6 @@ const EditEmployeeDetails = () => {
   const formik = useFormik({
     initialValues: {
       laptopId: "",
-      empId: "",
       totalExperience: "",
       currentCtc: "",
       role: "",
@@ -94,7 +92,6 @@ const EditEmployeeDetails = () => {
       isLaptop: "",
       laptopIssueDate: "",
       laptopModel: "",
-      empId: "",
       pf: "",
       domain: "",
       skills: "",

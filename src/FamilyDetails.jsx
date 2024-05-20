@@ -30,25 +30,43 @@ const FamilyDetails = () => {
       fatherName: "",
       fatherAadhar: "",
       fatherPanCard: "",
+       fatherMob:"",
+       fatherAge:"",
+      fatherAddress:"",
       motherName: "",
       motherAadhar: "",
       motherPan: "",
+      motherMob:"",
+      motherAge:"",
+      motherAddress:"",
       married: "",
       marriedName: "",
       marriedAadhar: "",
       marriedPan: "",
+      marriedMob:"",
+      marriedAge:"",
+      marriedAddress:"",
       children: "",
       childname: "",
       childAadhar: "",
       childPan: "",
+      childMob:"",
+      childAge:"",
+      childAddress:"",
       children1: "",
       childname1: "",
       childAadhar1: "",
       childPan1: "",
+      childMob1:"",
+      childAge1:"",
+      childAddress1:"",
       children2: "",
       childname2: "",
       childAadhar2: "",
       childPan2: "",
+      childMob2:"",
+      childAge2:"",
+      childAddress2:"",
     },
     validationSchema: Yup.object().shape({
       fatherName: Yup.string()
@@ -63,7 +81,9 @@ const FamilyDetails = () => {
       fatherPanCard: Yup.string()
         .matches(/^([A-Z]){5}([0-9]){4}([A-Z]){1}$/, "Invalid PAN Card number")
         .required("PAN Card number is required"),
-
+        fatherMob:Yup.string().matches(/^\d{10}$/, "Mobile number 10 Digits Only").required(),
+ fatherAge:Yup.number().typeError("Age Numerics Only").required("required"),
+fatherAddress:Yup.string().required("requird"),
       motherName: Yup.string()
         .matches(
           /^[A-Za-z]+$/,
@@ -73,10 +93,12 @@ const FamilyDetails = () => {
       motherAadhar: Yup.string()
         .matches(/^\d{12}$/, "Aadhar number must be a 12-digit numeric value")
         .required("Aadhar number is required"),
-
       motherPan: Yup.string()
         .matches(/^([A-Z]){5}([0-9]){4}([A-Z]){1}$/, "Invalid PAN Card number")
         .required("PAN Card number is required"),
+        motherMob:Yup.string().matches(/^\d{12}$/, "Mobile number 10 Digits Only").required(),
+        motherAge:Yup.number().typeError("Age Numerics Only").required("required"),
+       motherAddress:Yup.string().required("requird"),
       married: Yup.string().required("required"),
       marriedName: Yup.string().when("married", (married, schema) => {
         if (married[0] === "Yes") {
@@ -107,6 +129,29 @@ const FamilyDetails = () => {
               /^([A-Z]){5}([0-9]){4}([A-Z]){1}$/,
               "Invalid PAN Card number"
             )
+            .required("required");
+        }
+        return schema;
+      }),
+      marriedMob:Yup.string().when("married", (married, schema) => {
+        if (married[0] === "Yes") {
+          return schema
+          .matches(/^\d{10}$/, "Mobile number 10 Digits Only")
+            .required("required");
+        }
+        return schema;
+      }),
+      marriedAge:Yup.string().when("married", (married, schema) => {
+        if (married[0] === "Yes") {
+          return schema
+          .matches(/^([0-9]){4}$/, 'Invalid Age')
+            .required("required");
+        }
+        return schema;
+      }),
+      marriedAddress:Yup.string().when("married", (married, schema) => {
+        if (married[0] === "Yes") {
+          return schema
             .required("required");
         }
         return schema;
@@ -150,6 +195,34 @@ const FamilyDetails = () => {
         }
         return schema;
       }),
+      childMob: Yup.string().when("children", (children, schema) => {
+        if (children[0] === "Yes") {
+          return schema
+            .matches(
+              /^\d{10}$/,
+              "Mobile number 10 Digits Only"
+            )
+            .required("required");
+        }
+        return schema;
+      }),
+      childAge: Yup.string().when("children", (children, schema) => {
+        if (children[0] === "Yes") {
+          return schema
+          .matches(/^([0-9]){4}$/, 'Invalid Age')
+            .required("required");
+        }
+        return schema;
+      }),
+      childAddress: Yup.string().when("children", (children, schema) => {
+        if (children[0] === "Yes") {
+          return schema
+            .required("required");
+        }
+        return schema;
+      }),
+
+
       //  child1 start
       children1: Yup.string().when("children", (children,schema) => {
         if (children[0] === "Yes") {
@@ -190,6 +263,33 @@ const FamilyDetails = () => {
         }
         return schema;
       }),
+      childMob1: Yup.string().when("children", (children, schema) => {
+        if (children[0] === "Yes") {
+          return schema
+            .matches(
+              /^\d{10}$/,
+              "Mobile number 10 Digits Only"
+            )
+            .required("required");
+        }
+        return schema;
+      }),
+      childAge1: Yup.string().when("children", (children, schema) => {
+        if (children[0] === "Yes") {
+          return schema
+          .matches(/^([0-9]){4}$/, 'Invalid Age')
+            .required("required");
+        }
+        return schema;
+      }),
+      childAddress1: Yup.string().when("children", (children, schema) => {
+        if (children[0] === "Yes") {
+          return schema
+            .required("required");
+        }
+        return schema;
+      }),
+
       // child 2 starts
       children2: Yup.string().when("children1", (children1,schema) => {
         if (children1[0] === "Yes") {
@@ -231,6 +331,33 @@ const FamilyDetails = () => {
         }
         return schema;
       }),
+      childMob2: Yup.string().when("children", (children, schema) => {
+        if (children[0] === "Yes") {
+          return schema
+            .matches(
+              /^\d{10}$/,
+              "Mobile number 10 Digits Only"
+            )
+            .required("required");
+        }
+        return schema;
+      }),
+      childAge2: Yup.string().when("children", (children, schema) => {
+        if (children[0] === "Yes") {
+          return schema
+          .matches(/^([0-9]){4}$/, 'Invalid Age')
+            .required("required");
+        }
+        return schema;
+      }),
+      childAddress2: Yup.string().when("children", (children, schema) => {
+        if (children[0] === "Yes") {
+          return schema
+            .required("required");
+        }
+        return schema;
+      }),
+
     }),
     onSubmit: async (values) => {
       try {
@@ -326,6 +453,73 @@ const FamilyDetails = () => {
                     </div>
                   )}
               </div>
+              <div className="col-md-4 mb-4">
+                <label>Father Mobile Number</label>
+                <input
+                  type="text"
+                  name="fatherMob"
+                  placeholder="Enter Father Mobile Number"
+                  className={`border form-control ${
+                    formik.touched.fatherMob && formik.errors.fatherMob
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.fatherMob}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.fatherMob && formik.errors.fatherMob && (
+                  <div className="invalid-feedback">
+                    {formik.errors.fatherMob}
+                  </div>
+                )}
+              </div>
+              <div className="col-md-4 mb-4">
+                <label>Father Age</label>
+                <input
+                  type="text"
+                  name="fatherAge"
+                  placeholder="Enter Father Age"
+                  className={`border form-control ${
+                    formik.touched.fatherAge && formik.errors.fatherAge
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.fatherAge}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.fatherAge && formik.errors.fatherAge && (
+                  <div className="invalid-feedback">
+                    {formik.errors.fatherAge}
+                  </div>
+                )}
+              </div>
+              <div className="col-md-4 mb-4">
+                <label>Father Address</label>
+                <textarea
+                  type="text"
+                  name="fatherAddress"
+                  placeholder="Enter Father Address"
+                  className={`border form-control ${
+                    formik.touched.fatherAddress && formik.errors.fatherAddress
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.fatherAddress}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.fatherAddress && formik.errors.fatherAddress && (
+                  <div className="invalid-feedback">
+                    {formik.errors.fatherAddress}
+                  </div>
+                )}
+              </div>
+
               {/* Mother Started */}
               <div className="col-md-4 mb-4">
                 <label>Mother's Name</label>
@@ -394,6 +588,73 @@ const FamilyDetails = () => {
                 )}
               </div>
               <div className="col-md-4 mb-4">
+                <label>Mother Mobile Number</label>
+                <input
+                  type="text"
+                  name="motherMob"
+                  placeholder="Enter Mother Mobile Number"
+                  className={`border form-control ${
+                    formik.touched.motherMob && formik.errors.motherMob
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.motherMob}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.motherMob && formik.errors.motherMob && (
+                  <div className="invalid-feedback">
+                    {formik.errors.motherMob}
+                  </div>
+                )}
+              </div>
+              <div className="col-md-4 mb-4">
+                <label>Mother Age</label>
+                <input
+                  type="text"
+                  name="motherAge"
+                  placeholder="Enter Mother Age"
+                  className={`border form-control ${
+                    formik.touched.motherAge && formik.errors.motherAge
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.motherAge}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.motherAge && formik.errors.motherAge && (
+                  <div className="invalid-feedback">
+                    {formik.errors.motherAge}
+                  </div>
+                )}
+              </div>
+              <div className="col-md-4 mb-4">
+                <label>Mother Address</label>
+                <textarea
+                  type="text"
+                  name="motherAddress"
+                  placeholder="Enter Mother Address"
+                  className={`border form-control ${
+                    formik.touched.motherAddress && formik.errors.motherAddress
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.motherAddress}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.motherAddress && formik.errors.motherAddress && (
+                  <div className="invalid-feedback">
+                    {formik.errors.motherAddress}
+                  </div>
+                )}
+              </div>
+              {/* Maried Start */}
+              <div className="col-md-4 mb-4">
                 <label>Do you Married?</label>
                 <select
                   name="married"
@@ -425,7 +686,7 @@ const FamilyDetails = () => {
                     <input
                       type="text"
                       name="marriedName"
-                      placeholder="Enter Maried Name"
+                      placeholder="Enter Spouse Name"
                       className={`border form-control ${
                         formik.touched.marriedName && formik.errors.marriedName
                           ? "is-invalid"
@@ -444,11 +705,11 @@ const FamilyDetails = () => {
                       )}
                   </div>
                   <div className="col-md-4 mb-4">
-                    <label> Aadhar Number</label>
+                    <label>Spouse Aadhar Number</label>
                     <input
                       type="text"
                       name="marriedAadhar"
-                      placeholder="Enter Married Aadhar Number"
+                      placeholder="Enter Spouse Aadhar Number"
                       className={`border form-control ${
                         formik.touched.marriedAadhar &&
                         formik.errors.marriedAadhar
@@ -468,11 +729,11 @@ const FamilyDetails = () => {
                       )}
                   </div>
                   <div className="col-md-4 mb-4">
-                    <label> PAN Number</label>
+                    <label>Spouse PAN Number</label>
                     <input
                       type="text"
                       name="marriedPan"
-                      placeholder=" Enter Married PAN Number"
+                      placeholder=" Enter Spouse PAN Number"
                       className={`border form-control ${
                         formik.touched.marriedPan && formik.errors.marriedPan
                           ? "is-invalid"
@@ -489,6 +750,72 @@ const FamilyDetails = () => {
                       </div>
                     )}
                   </div>
+                  <div className="col-md-4 mb-4">
+                <label> Spouse Mobile Number</label>
+                <input
+                  type="text"
+                  name="marriedMob"
+                  placeholder="Enter Spouse Mobile Number"
+                  className={`border form-control ${
+                    formik.touched.marriedMob && formik.errors.marriedMob
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.marriedMob}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.marriedMob && formik.errors.marriedMob && (
+                  <div className="invalid-feedback">
+                    {formik.errors.marriedMob}
+                  </div>
+                )}
+              </div>
+              <div className="col-md-4 mb-4">
+                <label>Spouse Age</label>
+                <input
+                  type="text"
+                  name="marriedAge"
+                  placeholder="Enter Spouse Age"
+                  className={`border form-control ${
+                    formik.touched.marriedAge && formik.errors.marriedAge
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.marriedAge}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.marriedAge && formik.errors.marriedAge && (
+                  <div className="invalid-feedback">
+                    {formik.errors.marriedAge}
+                  </div>
+                )}
+              </div>
+              <div className="col-md-4 mb-4">
+                <label>Spouse Address</label>
+                <textarea
+                  type="text"
+                  name="marriedAddress"
+                  placeholder="Enter Spouse Address"
+                  className={`border form-control ${
+                    formik.touched.marriedAddress && formik.errors.marriedAddress
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.marriedAddress}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.marriedAddress && formik.errors.marriedAddress && (
+                  <div className="invalid-feedback">
+                    {formik.errors.marriedAddress}
+                  </div>
+                )}
+              </div>
                   <div className="col-md-4 mb-4">
                     <label>Do you have Children?</label>
                     <select
@@ -585,6 +912,72 @@ const FamilyDetails = () => {
                           </div>
                         )}
                       </div>
+                      <div className="col-md-4 mb-4">
+                <label>Child1 Mobile Number</label>
+                <input
+                  type="text"
+                  name="childMob"
+                  placeholder="Enter Child1 Mobile Number"
+                  className={`border form-control ${
+                    formik.touched.childMob && formik.errors.childMob
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.childMob}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.childMob && formik.errors.childMob && (
+                  <div className="invalid-feedback">
+                    {formik.errors.childMob}
+                  </div>
+                )}
+              </div>
+              <div className="col-md-4 mb-4">
+                <label>Child1 Age</label>
+                <input
+                  type="text"
+                  name="childAge"
+                  placeholder="Enter Child1 Age"
+                  className={`border form-control ${
+                    formik.touched.childAge && formik.errors.childAge
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.childAge}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.childAge && formik.errors.childAge && (
+                  <div className="invalid-feedback">
+                    {formik.errors.childAge}
+                  </div>
+                )}
+              </div>
+              <div className="col-md-4 mb-4">
+                <label>Child1 Address</label>
+                <textarea
+                  type="text"
+                  name="childAddress"
+                  placeholder="Enter Child1 Address"
+                  className={`border form-control ${
+                    formik.touched.childAddress && formik.errors.childAddress
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.childAddress}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.childAddress && formik.errors.childAddress && (
+                  <div className="invalid-feedback">
+                    {formik.errors.childAddress}
+                  </div>
+                )}
+              </div>
                       {/* Child 2 start */}
                       <div className="col-md-4 mb-4">
                         <label>Do you have Child2?</label>
@@ -686,6 +1079,72 @@ const FamilyDetails = () => {
                                 </div>
                               )}
                           </div>
+                          <div className="col-md-4 mb-4">
+                <label>Child2 Mobile Number</label>
+                <input
+                  type="text"
+                  name="childMob1"
+                  placeholder="Enter Child2 Mobile Number"
+                  className={`border form-control ${
+                    formik.touched.childMob1 && formik.errors.childMob1
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.childMob1}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.childMob1 && formik.errors.childMob1 && (
+                  <div className="invalid-feedback">
+                    {formik.errors.childMob1}
+                  </div>
+                )}
+              </div>
+              <div className="col-md-4 mb-4">
+                <label>Child2 Age</label>
+                <input
+                  type="text"
+                  name="childAge1"
+                  placeholder="Enter Child2 Age"
+                  className={`border form-control ${
+                    formik.touched.childAge1 && formik.errors.childAge1
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.childAge1}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.childAge1 && formik.errors.childAge1 && (
+                  <div className="invalid-feedback">
+                    {formik.errors.childAge1}
+                  </div>
+                )}
+              </div>
+              <div className="col-md-4 mb-4">
+                <label>Child2 Address</label>
+                <textarea
+                  type="text"
+                  name="childAddress1"
+                  placeholder="Enter Child2 Address"
+                  className={`border form-control ${
+                    formik.touched.childAddress1 && formik.errors.childAddress1
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.childAddress1}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.childAddress1 && formik.errors.childAddress1 && (
+                  <div className="invalid-feedback">
+                    {formik.errors.childAddress1}
+                  </div>
+                )}
+              </div>
                           {/* Child 3 strats */}
                           <div className="col-md-4 mb-4">
                             <label>Do you have Child3?</label>
@@ -721,7 +1180,7 @@ const FamilyDetails = () => {
                                 <input
                                   type="text"
                                   name="childname2"
-                                  placeholder="Enter Child1 Name"
+                                  placeholder="Enter Child3 Name"
                                   className={`border form-control ${
                                     formik.touched.childname2 &&
                                     formik.errors.childname2
@@ -788,6 +1247,72 @@ const FamilyDetails = () => {
                                     </div>
                                   )}
                               </div>
+                              <div className="col-md-4 mb-4">
+                <label>Child3 Mobile Number</label>
+                <input
+                  type="text"
+                  name="childMob2"
+                  placeholder="Enter Child3 Mobile Number"
+                  className={`border form-control ${
+                    formik.touched.childMob2 && formik.errors.childMob2
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.childMob2}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.childMob2 && formik.errors.childMob2 && (
+                  <div className="invalid-feedback">
+                    {formik.errors.childMob2}
+                  </div>
+                )}
+              </div>
+              <div className="col-md-4 mb-4">
+                <label>Child3 Age</label>
+                <input
+                  type="text"
+                  name="childAge2"
+                  placeholder="Enter Child3 Age"
+                  className={`border form-control ${
+                    formik.touched.childAge2 && formik.errors.childAge2
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.childAge2}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.childAge2 && formik.errors.childAge2 && (
+                  <div className="invalid-feedback">
+                    {formik.errors.childAge2}
+                  </div>
+                )}
+              </div>
+              <div className="col-md-4 mb-4">
+                <label>Child3 Address</label>
+                <textarea
+                  type="text"
+                  name="childAddress2"
+                  placeholder="Enter Child3 Address"
+                  className={`border form-control ${
+                    formik.touched.childAddress2 && formik.errors.childAddress2
+                      ? "is-invalid"
+                      : ""
+                  }`}
+                  value={formik.values.childAddress2}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  required
+                />
+                {formik.touched.childAddress2 && formik.errors.childAddress2 && (
+                  <div className="invalid-feedback">
+                    {formik.errors.childAddress2}
+                  </div>
+                )}
+              </div>
                             </>
                           )}
                         </>

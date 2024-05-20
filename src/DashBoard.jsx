@@ -40,6 +40,7 @@ const DashBoard = () => {
     <>
       <div
         style={{
+          position:"-webkit-sticky",
           display: "flex",
           minHeight: "100vh",
           overflow: "scroll initial",
